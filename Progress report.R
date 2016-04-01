@@ -57,3 +57,8 @@ View(games)
 plot(games$score.dif, type = "b")
 abline(h = 0)
 
+#Further steps: 
+## time series model specification
+## hierarchy based on teams???
+
+
