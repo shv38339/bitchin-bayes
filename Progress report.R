@@ -30,5 +30,30 @@ plot(visiting$score.dif, type = "b", xlab = "Time", ylab = "Score differential",
 #Have to convert Date column to date data type
 #How to use lubridate?
 library(lubridate)
+home <- home[,-c(2,3,8,9)]
+visiting <- visiting[, -c(2,3,8,9)]
 
+dates <- as.Date(home$Date, "%a, %b %d, %Y")
+home$Date <- dates
+
+dates2 <- as.Date(visiting$Date, "%a, %b %d, %Y")
+visiting$Date <- dates2
+View(home)
+
+games <- rbind(home, visiting)
+games <- games %>% arrange(Date)
+View(games)
+
+#convert VisitingTeam == "Boston Celtics" to 1, 0 otherwise
+#convert HomeTeam == "Boston Celtics" to 1, -1 otherwise
+#Final result: VisitingTeam + HomeTeam = 1 if Home, 0 otherwise
+games$VisitingTeam <- ifelse(games$VisitingTeam == "Boston Celtics", 1, 0)
+games$HomeTeam <- ifelse(games$HomeTeam == "Boston Celtics", 1, -1)
+games$Home <- games$VisitingTeam + games$HomeTeam
+View(games)
+games <- games[, -c(2,3,4,5)]
+View(games)
+
+plot(games$score.dif, type = "b")
+abline(h = 0)
 
