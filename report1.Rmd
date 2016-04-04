@@ -1,55 +1,104 @@
 ---
-title: "Progress report 1"
-author: "Tom Jeon"
+title: "Progress Report for April 4th, 2016"
+author: "Tom Jeon & Steele Valenzuela"
 date: "April 1, 2016"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+##Dependencies
+library(rvest)
+library(dplyr)
+library(lubridate)
+library(knitr)
 ```
 
 ## Introduction
-Based on Andrew Gelman's blog...
+We would like to "borrow" an idea from Andrew Gelman's blog pertaining to sports. Initially, when sports fanatics and statistics mesh, betting and gambling on who will win a game becomes the most salient information they care about. That was our idea, too, because everyone wants to predict a winner. What is not as exciting, as enlighted by Andrew Gelman (http://andrewgelman.com/2014/02/25/basketball-stats-dont-model-probability-win-model-expected-score-differential/) is to model the expected score differential.
 
+*Score differential*, which is the difference of the final score, of which requires two teams to be matched up against one another. We have chosen the National Basketball Association (NBA) as our sport of interest. There are **30 teams**, each playing **82** games, which is a moderate amount when one considers the number of games played by professional football teams (not as many games) and baseball teams (almost twice the amount of games). This presents us with a manageable number of games, or for this case, observations.
 
-What is this about
+Moreover, we will attempt to fit a Bayesian hierarchical model as well as adding a time-series extension to the model, something which we have not yet explored in class. For the hierarchical model, the set-up includes observing the score-differential for one team, the Boston Celtics, which is nested within a division along with a few teams, and where the division is nested within a larger conference, which is composed of half of all teams. Therefore, we will create a multi-level model that will draw information from the divisions, conferences, and finally, the time-series aspect will draw from prior games. 
 
-## Code and Time Series Plots
+## Data
+
+The following code displays how we extracted `HTML` tables from a website to create our data sets as well as a few steps in cleaning the data set.
 ```{r, warning=FALSE, tidy = TRUE, comment=""}
-#`Progress Report`: Modeling score differentials
-
-##Loaded data
-library(rvest)
 url <- read_html("http://www.basketball-reference.com/leagues/NBA_2015_games.html")
 tbl <- html_table(url)
-library(dplyr)
-d1 <- tbl_df(as.data.frame(tbl[1]))
-d2 <- tbl_df(as.data.frame(tbl[2]))
 
-##Cleaning!!!
+d1 <- tbl_df(as.data.frame(tbl[1])) # data set we'll be using for this report
+d2 <- tbl_df(as.data.frame(tbl[2])) # playoffs. not using this one unless we get far in the project
+
+##Cleaning
 d1$Visitor.Neutral <- as.factor(d1$Visitor.Neutral)
 d1$Home.Neutral <- as.factor(d1$Home.Neutral)
 
 names(d1) <- c("Date", "ET.Start", "Var.3", "VisitingTeam", "PTS.V", "HomeTeam", "PTS.H", "Var.8", "Notes")
-#names(d1)
-#str(d1)
-
-library(dplyr)
+#names(d1) #str(d1)
 home <- d1 %>% filter(HomeTeam == "Boston Celtics")
 visiting <- d1 %>% filter(VisitingTeam == "Boston Celtics")
 
 home$score.dif <- home$PTS.H - home$PTS.V #negative values denote celtics' loss
 visiting$score.dif <- visiting$PTS.V - visiting$PTS.H
+kable(head(home)) # display table
+```
 
+We see the first 6 rows of the *home* data set, which displays the results for the Boston Celtics, the team they played, and the score differential. The *visiting* data set may also be viewed. 
+
+## Team Conferences and Divisions
+In the NBA, there are two conferences; Eastern & Western. And in each conference, there are 3 divisions. For the Eastern conference, the divisions are; Atlantic, Central, Southeast. For the Western conference, the divisions are; Northwest, Pacific, Southwest. These may be verified from the website where pulled the original data which displayed the 2014-15 schedule (http://www.basketball-reference.com/leagues/NBA_2015_standings.html). 
+
+Now, let's link each team (from the *home* and *visiting* dataframes) to their respective conference and division, which will make up two levels for our hierarchical model.
+```{r levels}
+atl.div <- c("Toronto Raptors", "Boston Celtics", "Brooklyn Nets", "Philadelphia 76ers", "New York Knicks")
+cen.div <- c("Cleveland Cavaliers", "Chicago Bulls", "Milwaukee Bucks", "Indiana Pacers", "Detroit Pistons")
+se.div <- c("Atlanta Hawks", "Washington Wizards", "Miami Heat", "Charlotte Hornets", "Orlando Magic")
+nw.div <- c("Portland Trail Blazers", "Oklahoma City Thunder", "Utah Jazz", "Denver Nuggets")
+pac.div <- c("Golden State Warriors", "Los Angeles Clippers", "Phoenix Suns", "Sacramento Kings", "Los Angeles Lakers")
+sw.div <- c("Houston Rockets", "San Antonio Spurs", "Memphis Grizzlies", "Dallas Mavericks", "New Orleans Pelicans")
+east.conf <- c(atl.div, cen.div, se.div)
+west.conf <- c(nw.div, pac.div, sw.div)
+```
+
+And let's add the division and conference grouping variables to both the *home* and *visitor* data frames.
+```{r combined df}
+home$vtconf <- ifelse(home$VisitingTeam %in% east.conf, "East", "West") # visiting team conference
+home$htconf <- "East"
+home$vtdiv <- ifelse(home$VisitingTeam %in% atl.div, "Atlantic Division", 
+                     ifelse(home$VisitingTeam %in% cen.div, "Central Division",
+                            ifelse(home$VisitingTeam %in% se.div, "Southeast Division", 
+                                   ifelse(home$VisitingTeam %in% nw.div, "Northwest Division", 
+                                          ifelse(home$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+home$htdiv <- "Atlantic Division"
+
+visiting$htconf <- ifelse(visiting$HomeTeam %in% east.conf, "East", "West")
+visiting$vtconf <- "East"
+visiting$htdiv <- ifelse(home$VisitingTeam %in% atl.div, "Atlantic Division", 
+                     ifelse(home$VisitingTeam %in% cen.div, "Central Division",
+                            ifelse(home$VisitingTeam %in% se.div, "Southeast Division", 
+                                   ifelse(home$VisitingTeam %in% nw.div, "Northwest Division", 
+                                          ifelse(home$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+visiting$vtdiv <- "Atlantic Division"
+```
+
+## Time Series
+Next, let's view the *score differential* on the *y-axis* and *time* on the *x-axis* for all home and away games.
+```{r}
 plot(home$score.dif, type = "b", xlab = "Time", ylab = "Score differential", main = "When celtics were the home team")
-plot(visiting$score.dif, type = "b", xlab = "Time", ylab = "Score differential", main = "When celtics were the visiting team") ## CLASSIC TIME SERIES 
+plot(visiting$score.dif, type = "b", xlab = "Time", ylab = "Score differential", main = "When celtics were the visiting team") 
+```
+
+Next, let's view the progression of the Boston Celtics over the whole season, disregarding *home* and *away*.
+```{r}
+## CLASSIC TIME SERIES 
 
 #Combine the home and visiting by proper time
 
 #Have to convert Date column to date data type
 #How to use lubridate?
-library(lubridate)
 home <- home[,-c(2,3,8,9)]
 visiting <- visiting[, -c(2,3,8,9)]
 
@@ -79,10 +128,17 @@ abline(h = 0, col = "red")
 
 #Further steps: 
 ## time series model specification
-## hierarchy based on teams???
+## hierarchy based on teams, div, conf, home/away
 ```
+The final plot shows time-series data for the Boston Celtics. 
 
 ## Next Steps
-The final plot shows time series data for the Boston Celtics. Further steps would include specifying the most appropriate ARIMA model, and model diagnostics, **finding and merging data from other sources**, doing those within the bayesian context, and making a multilevel hierarchy structure for different home and visiting teams.
+Further steps would include specifying the most appropriate autoregressive integrated moving average (ARIMA) model and its model diagnostics, **finding and merging data from other sources** (levels complete, so covariates?), fitting a Bayesian hierarchical level model, specifying those levels, and merging possible covariates. 
 
+## Questions (for project members)
+
+1. If we combine both home and away data sets, will that be another level?
+2. Can you provide more info on ARIMA? I've heard of moving averages, but only briefly, and in the context of splines.
+3. How will covariates play into time-series? Are they updated after the passing of one-unit of time? In our case, after one game. 
+4. Not a question, but let's find a time-series example within a Bayesian context.
 

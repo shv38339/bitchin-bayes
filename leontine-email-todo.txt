@@ -1,0 +1,43 @@
+Overview:
+  - Goal: carry out a substantial analysis/modeling exercise using Bayesian methods learned in class (or read up upon while doing the project).
+  - End products:
+    - Group presentation, scheduled for April 25
+    - Final report, due Tuesday May 3
+  - Groups with 3 students. Individual projects are allowed if the research is part of your PhD.
+  - UPDATE: groups of 2 or 4 are accepted with instructor's approval.
+  
+Options for your project include
+  - A regression analysis, which goes at least one step beyond a standard linear/logistic/poisson regression, e.g. by including at least one of the following elements:
+    - Hierarchical model structure
+    - Variable selection problem
+    - Non-linear relationships, modeled by splines
+    - Added time series or gaussian process component
+    - Working with censored survival data
+    - ...
+  - The goal would be to analyze associations, estimate mean outcomes for specific covariate patterns or construct forecasts (if there is a time dimension).
+    - A different type of modeling exercise (e.g., projecting total fertility rates or estimating differentials in child mortality), again one that includes more than fitting one standard model to a dataset.
+    - Sex differentials in child mortality presentation gives an example
+    - ???
+
+Project description
+  - Due week of March 21 (latest by March 26)
+  - Description includes:
+    - Research question(s)/explanation of goal of project
+    - Summary of data source to be used, including a brief description on how the data came about and what variables are included in the dataset that will be considered in the analysis.
+    - One or more candidate model set-ups that are likely to be explored (this may change after doing more exploratory analysis but gives the initial and likely direction for model building)
+  - Notes:
+    - For those of you with an idea but w/o a group, please post info about your proposal on moodle (I will start a new topic on the forum for this). Students can contact the poster(s) directly for more info/to join the group.
+    - If you're interested in one of the UN datasets, send me an email.
+    - If you have an idea but aren't sure it would work for the project, send me an email with more info.
+
+Next steps and deadlines
+  - Week of March 21 (latest by March 26): Project description due.
+  - April 4: Brief progress report due, with exploratory analysis, initial model fitting, and a list of open issues to resolve and how
+  - April 18 (or earlier): second progress report (optional), with model findings and short list of final steps.
+  - Presentations: April 25
+  - Final report due: May 2
+  
+Feedback and grading
+  - I will provide feedback on the project description, progress report(s) and presentations.
+  - Progress report(s) are not graded, they are for your own benefit to get feedback only. However, showing substantial independent progress throughout the project will positively impact your grade (where progress/amount of feedback needed is evaluated relative to the difficulty level of the project).
+  - Grade is determined by presentation and final report, as well as demonstration of independent progress.

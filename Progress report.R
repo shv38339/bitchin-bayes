@@ -1,9 +1,13 @@
 #`Progress Report`: Modeling score differentials
 
+##Dependencies
+library(dplyr)
+library(rvest)
+library(lubridate)
 ##Loaded data
 url <- read_html("http://www.basketball-reference.com/leagues/NBA_2015_games.html")
 tbl <- html_table(url)
-library(dplyr)
+
 d1 <- tbl_df(as.data.frame(tbl[1]))
 d2 <- tbl_df(as.data.frame(tbl[2]))
 
@@ -15,7 +19,7 @@ names(d1) <- c("Date", "ET.Start", "Var.3", "VisitingTeam", "PTS.V", "HomeTeam",
 names(d1)
 str(d1)
 
-library(dplyr)
+
 home <- d1 %>% filter(HomeTeam == "Boston Celtics")
 visiting <- d1 %>% filter(VisitingTeam == "Boston Celtics")
 
