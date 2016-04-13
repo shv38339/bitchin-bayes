@@ -2,7 +2,7 @@
 title: "Progress Report for April 4th, 2016"
 author: "Tom Jeon & Steele Valenzuela"
 date: "April 1, 2016"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
