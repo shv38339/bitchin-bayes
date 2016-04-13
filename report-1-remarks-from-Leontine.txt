@@ -1,0 +1,15 @@
+Comment on Next Steps:
+
+what about following approach: 
+- try to set up a regression model to predict the score differential at each game and fit that model. would it be possible to start with some simple summary of overall team strength as a covariate, eg their ranking from the previous season, to include into the model (differential with the ranking of your team)? 
+- assuming that the residuals of that model are correlated with time, add in a time series component to capture time trends within your chosen team.
+
+Comments on our 4 questions, respectively:
+
+1. perhaps home vs away can be a covariate in the model?
+
+2. the congdon book has the best references for it. but in the interest of time, I recommend starting with the regression model, adding an ar(1) and then look into (and we can discuss) more extended time series processes. 
+
+3. depends on what covariates you end up using. I'd start simple, e.g. with a fixed score for each team based on last year's ranking. then if you have time, you can look into updating that score based on how the team is doing in the current season. 
+
+4. The case study on estimating sex-specific child mortality rates is an example of a Bayesian model with a time series component, as is the MMR model partially discussed earlier in the semester. 
