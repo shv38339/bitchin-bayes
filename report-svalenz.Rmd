@@ -16,6 +16,7 @@ library(lubridate)
 library(knitr)
 library(rjags)
 library(R2jags)
+library(tsa)
 ```
 
 ## Introduction
@@ -124,12 +125,13 @@ Alright. We have the ranks and now let's merge them to our `d3` dataset using a 
 g1 <- tbl_df(left_join(x = d3, y = f2, by = "team"))
 ```
 
-Now, following **Leontine's advice**, we're going to differentiate the rank, b/c it doesn't make sense to keep rank constant. Wow, this is ridiuclous.
+Now, let's get all the teams with the Celtics and who they played.
 ```{r rank-differential}
-rank.diff <- g1$def.rank[]
+g2 <- filter(g1, team == "Boston Celtics")
+boston.ids <- g2$game.id
+g3 <- g1[g1$game.id %in% boston.ids, ]
+g4 <- filter(g3, team != "Boston Celtics")
 ```
-
-See steele.Rmd
 
 ## Non-time series model
 
