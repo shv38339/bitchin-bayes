@@ -121,8 +121,14 @@ f2$team[f2$team == "Charlotte Bobcats"] <- "Charlotte Hornets"
 
 Alright. We have the ranks and now let's merge them to our `d3` dataset using a `_join` function from `dplyr`. 
 ```{r merge-rank}
-g1 <- left_join(x = d3, y = f2, by = "team")
+g1 <- tbl_df(left_join(x = d3, y = f2, by = "team"))
 ```
+
+Now, following **Leontine's advice**, we're going to differentiate the rank, b/c it doesn't make sense to keep rank constant. Wow, this is ridiuclous.
+```{r rank-differential}
+rank.diff <- g1$def.rank[]
+```
+
 
 ## Non-time series model
 
