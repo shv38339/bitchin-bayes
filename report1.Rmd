@@ -8,14 +8,18 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-##Dependencies
+#Dependencies
 library(rvest)
 library(dplyr)
+library(tidyr)
 library(lubridate)
 library(knitr)
+library(rjags)
+library(R2jags)
 ```
 
 ## Introduction
+
 We would like to "borrow" an idea from Andrew Gelman's blog pertaining to sports. Initially, when sports fanatics and statistics mesh, betting and gambling on who will win a game becomes the most salient information they care about. That was our idea, too, because everyone wants to predict a winner. What is not as exciting, as enlighted by Andrew Gelman (http://andrewgelman.com/2014/02/25/basketball-stats-dont-model-probability-win-model-expected-score-differential/) is to model the expected score differential.
 
 *Score differential*, which is the difference of the final score, of which requires two teams to be matched up against one another. We have chosen the National Basketball Association (NBA) as our sport of interest. There are **30 teams**, each playing **82** games, which is a moderate amount when one considers the number of games played by professional football teams (not as many games) and baseball teams (almost twice the amount of games). This presents us with a manageable number of games, or for this case, observations.
@@ -30,25 +34,29 @@ url <- read_html("http://www.basketball-reference.com/leagues/NBA_2015_games.htm
 tbl <- html_table(url)
 
 d1 <- tbl_df(as.data.frame(tbl[1])) # data set we'll be using for this report
-d2 <- tbl_df(as.data.frame(tbl[2])) # playoffs. not using this one unless we get far in the project
+#d2 <- tbl_df(as.data.frame(tbl[2])) # playoffs. not using this one unless we get far in the project
 
 ##Cleaning
-d1$Visitor.Neutral <- as.factor(d1$Visitor.Neutral)
-d1$Home.Neutral <- as.factor(d1$Home.Neutral)
+# d1$Visitor.Neutral <- as.factor(d1$Visitor.Neutral)
+# d1$Home.Neutral <- as.factor(d1$Home.Neutral)
 
 names(d1) <- c("Date", "ET.Start", "Var.3", "VisitingTeam", "PTS.V", "HomeTeam", "PTS.H", "Var.8", "Notes")
-#names(d1) #str(d1)
-home <- d1 %>% filter(HomeTeam == "Boston Celtics")
-visiting <- d1 %>% filter(VisitingTeam == "Boston Celtics")
-
-home$score.dif <- home$PTS.H - home$PTS.V #negative values denote celtics' loss
-visiting$score.dif <- visiting$PTS.V - visiting$PTS.H
-kable(head(home)) # display table
+d1$h.diff <- d1$PTS.H - d1$PTS.V
+d1$v.diff <- d1$PTS.V - d1$PTS.H
+d1$game.id <- seq(1, nrow(d1), 1)
+# d1$outcome <- ifelse()
+# home <- d1 %>% filter(HomeTeam == "Boston Celtics")
+# visiting <- d1 %>% filter(VisitingTeam == "Boston Celtics")
+# 
+# home$score.dif <- home$PTS.H - home$PTS.V #negative values denote celtics' loss
+# visiting$score.dif <- visiting$PTS.V - visiting$PTS.H
+# kable(head(home)) # display table
 ```
 
 We see the first 6 rows of the *home* data set, which displays the results for the Boston Celtics, the team they played, and the score differential. The *visiting* data set may also be viewed. 
 
 ## Team Conferences and Divisions
+
 In the NBA, there are two conferences; Eastern & Western. And in each conference, there are 3 divisions. For the Eastern conference, the divisions are; Atlantic, Central, Southeast. For the Western conference, the divisions are; Northwest, Pacific, Southwest. These may be verified from the website where pulled the original data which displayed the 2014-15 schedule (http://www.basketball-reference.com/leagues/NBA_2015_standings.html). 
 
 Now, let's link each team (from the *home* and *visiting* dataframes) to their respective conference and division, which will make up two levels for our hierarchical model.
@@ -65,26 +73,101 @@ west.conf <- c(nw.div, pac.div, sw.div)
 
 And let's add the division and conference grouping variables to both the *home* and *visitor* data frames.
 ```{r combined df}
-home$vtconf <- ifelse(home$VisitingTeam %in% east.conf, "East", "West") # visiting team conference
-home$htconf <- "East"
-home$vtdiv <- ifelse(home$VisitingTeam %in% atl.div, "Atlantic Division", 
-                     ifelse(home$VisitingTeam %in% cen.div, "Central Division",
-                            ifelse(home$VisitingTeam %in% se.div, "Southeast Division", 
-                                   ifelse(home$VisitingTeam %in% nw.div, "Northwest Division", 
-                                          ifelse(home$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
-home$htdiv <- "Atlantic Division"
+d1$vtconf <- ifelse(d1$VisitingTeam %in% east.conf, "East", "West") # visiting team conference
+d1$htconf <- "East"
+d1$vtdiv <- ifelse(d1$VisitingTeam %in% atl.div, "Atlantic Division", 
+                     ifelse(d1$VisitingTeam %in% cen.div, "Central Division",
+                            ifelse(d1$VisitingTeam %in% se.div, "Southeast Division", 
+                                   ifelse(d1$VisitingTeam %in% nw.div, "Northwest Division", 
+                                          ifelse(d1$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+d1$htdiv <- "Atlantic Division"
 
-visiting$htconf <- ifelse(visiting$HomeTeam %in% east.conf, "East", "West")
-visiting$vtconf <- "East"
-visiting$htdiv <- ifelse(home$VisitingTeam %in% atl.div, "Atlantic Division", 
-                     ifelse(home$VisitingTeam %in% cen.div, "Central Division",
-                            ifelse(home$VisitingTeam %in% se.div, "Southeast Division", 
-                                   ifelse(home$VisitingTeam %in% nw.div, "Northwest Division", 
-                                          ifelse(home$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
-visiting$vtdiv <- "Atlantic Division"
+d1$htconf <- ifelse(d1$HomeTeam %in% east.conf, "East", "West")
+d1$vtconf <- "East"
+d1$htdiv <- ifelse(d1$VisitingTeam %in% atl.div, "Atlantic Division", 
+                     ifelse(d1$VisitingTeam %in% cen.div, "Central Division",
+                            ifelse(d1$VisitingTeam %in% se.div, "Southeast Division", 
+                                   ifelse(d1$VisitingTeam %in% nw.div, "Northwest Division", 
+                                          ifelse(d1$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+d1$vtdiv <- "Atlantic Division"
 ```
 
+Now, let's change the format to a long dataset rather than a wide dataset. 
+```{r wide-to-long}
+d2 <- d1 %>% select(game.id, Date,
+                    VisitingTeam, PTS.V, vtconf, vtdiv, v.diff,
+                    HomeTeam, PTS.H, htconf, htdiv, h.diff) %>%
+              rename(v.team = VisitingTeam, v.pts = PTS.V, v.conf = vtconf, v.div = vtdiv,
+                     h.team = HomeTeam, h.pts = PTS.H, h.conf = htconf, h.div = htdiv) %>%
+              gather(key, value, v.team:h.diff) %>%
+                separate(key, c("status", "type")) %>%
+                  spread(type, value, convert = TRUE) # thank god...
+d3 <- select(d2, game.id, Date, team, div, conf, status, pts, diff)
+```
+
+
+## Team Ratings
+
+For a team attribute, let's add the previous season's team ratings (2013-14) from the following [link](http://www.basketball-reference.com/leagues/NBA_2014_ratings.html). Please note, how the rating here was obtained is not the point, it's just the fact that we can put an attribute to each team.
+```{r team-rank}
+url2 <- read_html("http://www.basketball-reference.com/leagues/NBA_2014_ratings.html")
+tbl2 <- html_table(url2)
+f1 <- tbl_df(as.data.frame(tbl2))
+f2 <- f1[-1, c(1, 2)]
+colnames(f2) <- c("def.rank", "team")
+f2$def.rank <- as.factor(as.numeric(f2$def.rank))
+f2$team[f2$team == "Charlotte Bobcats"] <- "Charlotte Hornets"
+```
+
+Alright. We have the ranks and now let's merge them to our `d3` dataset using a `_join` function from `dplyr`. 
+```{r merge-rank}
+g1 <- left_join(x = d3, y = f2, by = "team")
+```
+
+## Non-time series model
+
+Now that we have an attribute other than score differential (our $\hat{Y_i}), let's see how well defensive rank can predict the score differential. One can only imagine that if defensive rank is low, then score differential will be a high number, in this case, a positive number.
+```{r simple-linear-regression}
+m1 <- lm(diff ~ def.rank, data = g1)
+summary(m1) # kind of interesting but not
+m2 <- lm(diff ~ def.rank + as.factor(status), data = g1)
+summary(m2)
+```
+
+Well, that's out of the way. Now let's choose a team (the **Boston Celtics**) AND re-issue the `game.id` variable as the sequential game played during that season (*re-phrase*). Then we'll plot the score differential and create a model.
+```{r team-celtics}
+team1 <- filter(g1, team == "Boston Celtics") # dataset
+team1$game.id <- seq(1, nrow(team1), 1) # games
+y <- team1$diff; x <- team1$game.id # variables
+plot(x, y, xlab = "Game", ylab = "Score differential", type = "o")
+abline(h = 0, col = "red")
+
+# regression model with time as covariate----
+fit1 <- lm(y ~ x)
+summary(fit1) # we see that time is not a significant predictor
+
+# let's fit a first-degree curve ----
+plot(x, y, type = 'l')
+poly = function(x){         # The fitted polynomial function 
+  (fit1$coefficients[1] + fit1$coefficients[2]*x)
+}
+curve(poly, from = 1, to = length(y), col = 2, add = TRUE)
+
+# and a second and third degree curve ----
+fit2 <- lm(y ~ x + I(x^2))
+plot(x, y, type = 'l')
+poly <- function(x){fit2$coef[1] + fit2$coef[2]*x + fit2$coef[3]*(x^2)}
+curve(poly, from = 1, to = length(y), col = 2, add = TRUE)
+
+fit3 <- lm(y ~ x + I(x^2) + I(x^3))
+plot(x, y, type = 'l')
+poly <- function(x){fit3$coef[1] + fit3$coef[2]*x + fit3$coef[3]*(x^2) + fit3$coef[4]*(x^3)}
+curve(poly, from = 1, to = length(y), col = 2, add = TRUE)
+```
+
+
 ## Time Series
+
 Next, let's view the *score differential* on the *y-axis* and *time* on the *x-axis* for all home and away games.
 ```{r}
 plot(home$score.dif, type = "b", xlab = "Time", ylab = "Score differential", main = "When celtics were the home team")
@@ -141,4 +224,14 @@ Further steps would include specifying the most appropriate autoregressive integ
 2. Can you provide more info on ARIMA? I've heard of moving averages, but only briefly, and in the context of splines.
 3. How will covariates play into time-series? Are they updated after the passing of one-unit of time? In our case, after one game. 
 4. Not a question, but let's find a time-series example within a Bayesian context.
+
+## Model
+
+Well, let's get a damn model here. First, what is our most basic model?
+```{r, cache = TRUE}
+# basic model ----
+
+# jags model ----
+
+```
 
