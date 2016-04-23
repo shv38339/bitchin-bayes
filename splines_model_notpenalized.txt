@@ -1,0 +1,14 @@
+model{ 
+
+# data
+for (i in 1:n){
+ y.i[i]~dnorm(mu.i[i],tau.y)
+ mu.i[i] <- inprod(B.ik[i,], alpha.k)
+}
+tau.y <- pow(sigma.y, -2)
+sigma.y ~ dunif(0,3)
+for (k in 1:K){ 
+  alpha.k[k] ~ dnorm(0, 0.01)
+}
+
+}
