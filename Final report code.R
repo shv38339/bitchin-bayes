@@ -117,6 +117,8 @@ plot(error, type = "l") # time series
 
 # Fitting AR(1) process to the spline residuals
 
+# Model specification
+# residual_t <- 
 
 
 
