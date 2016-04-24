@@ -1,3 +1,5 @@
+# extract data with commands from the library rvest ----
+library(rvest)
 url <- read_html("http://www.basketball-reference.com/leagues/NBA_2004_games.html")
 tbl <- html_table(url)
 dat <- tbl_df(as.data.frame(tbl[1]))
@@ -35,20 +37,12 @@ url11 <- read_html("http://www.basketball-reference.com/leagues/NBA_2015_games.h
 tbl11 <- html_table(url11)
 dat11 <- tbl_df(as.data.frame(tbl11[1]))
 
+# bind data, re-arrange, clean, and create a few columns ----
 d1 <- rbind(dat, dat1, dat2, dat3, dat4, dat5, dat6, dat7, dat8, dat9, dat10)
 names(d1) <- c("Date", "ET.Start", "Var.3", "VisitingTeam", "PTS.V", "HomeTeam", "PTS.H", "Var.8", "Notes")
-d1$h.diff <- d1$PTS.H - d1$PTS.V
-d1$v.diff <- d1$PTS.V - d1$PTS.H
-d1$game.id <- seq(1, nrow(d1), 1)
-# d1$outcome <- ifelse()
-# home <- d1 %>% filter(HomeTeam == "Boston Celtics")
-# visiting <- d1 %>% filter(VisitingTeam == "Boston Celtics")
-# 
-# home$score.dif <- home$PTS.H - home$PTS.V #negative values denote celtics' loss
-# visiting$score.dif <- visiting$PTS.V - visiting$PTS.H
-# kable(head(home)) # display table
+d1$h.diff <- d1$PTS.H - d1$PTS.V # home diff
+d1$v.diff <- d1$PTS.V - d1$PTS.H # visitor diff - originally unnecessary but when changing to long format
+d1$game.id <- seq(1, nrow(d1), 1) # game id to have unique row identifiers
 
-url14 <- read_html("http://www.basketball-reference.com/leagues/NBA_2014_games.html")
-tbl14 <- html_table(url14)
-
-d14 <- tbl_df(as.data.frame(tbl14[1]))
+# save to a csv ----
+write.csv(d1, "d1.csv")
