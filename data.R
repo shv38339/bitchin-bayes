@@ -46,3 +46,42 @@ d1$game.id <- seq(1, nrow(d1), 1) # game id to have unique row identifiers
 
 # save to a csv ----
 write.csv(d1, "d1.csv")
+
+# add conferences and divisions ----
+atl.div <- c("Toronto Raptors", "Boston Celtics", "Brooklyn Nets", "Philadelphia 76ers", "New York Knicks")
+cen.div <- c("Cleveland Cavaliers", "Chicago Bulls", "Milwaukee Bucks", "Indiana Pacers", "Detroit Pistons")
+se.div <- c("Atlanta Hawks", "Washington Wizards", "Miami Heat", "Charlotte Hornets", "Orlando Magic")
+nw.div <- c("Portland Trail Blazers", "Oklahoma City Thunder", "Utah Jazz", "Denver Nuggets")
+pac.div <- c("Golden State Warriors", "Los Angeles Clippers", "Phoenix Suns", "Sacramento Kings", "Los Angeles Lakers")
+sw.div <- c("Houston Rockets", "San Antonio Spurs", "Memphis Grizzlies", "Dallas Mavericks", "New Orleans Pelicans")
+east.conf <- c(atl.div, cen.div, se.div)
+west.conf <- c(nw.div, pac.div, sw.div)
+
+d1$vtconf <- ifelse(d1$VisitingTeam %in% east.conf, "East", "West") # visiting team conference
+d1$htconf <- "East"
+d1$vtdiv <- ifelse(d1$VisitingTeam %in% atl.div, "Atlantic Division", 
+ifelse(d1$VisitingTeam %in% cen.div, "Central Division",
+ifelse(d1$VisitingTeam %in% se.div, "Southeast Division", 
+ifelse(d1$VisitingTeam %in% nw.div, "Northwest Division", 
+ifelse(d1$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+d1$htdiv <- "Atlantic Division"
+
+d1$htconf <- ifelse(d1$HomeTeam %in% east.conf, "East", "West")
+d1$vtconf <- "East"
+d1$htdiv <- ifelse(d1$VisitingTeam %in% atl.div, "Atlantic Division", 
+ifelse(d1$VisitingTeam %in% cen.div, "Central Division",
+ifelse(d1$VisitingTeam %in% se.div, "Southeast Division", 
+ifelse(d1$VisitingTeam %in% nw.div, "Northwest Division", 
+ifelse(d1$VisitingTeam %in% pac.div, "Pacific Division", "Southwest Division")))))
+d1$vtdiv <- "Atlantic Division"
+
+# from wide to long data format ----
+d2 <- d1 %>% select(game.id, Date,
+                    VisitingTeam, PTS.V, vtconf, vtdiv, v.diff,
+                    HomeTeam, PTS.H, htconf, htdiv, h.diff) %>%
+  rename(v.team = VisitingTeam, v.pts = PTS.V, v.conf = vtconf, v.div = vtdiv,
+         h.team = HomeTeam, h.pts = PTS.H, h.conf = htconf, h.div = htdiv) %>%
+  gather(key, value, v.team:h.diff) %>%
+  separate(key, c("status", "type")) %>%
+  spread(type, value, convert = TRUE) # thank god...
+d3 <- select(d2, game.id, Date, team, div, conf, status, pts, diff)
