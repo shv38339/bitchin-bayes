@@ -1,0 +1,952 @@
+"","Date","diff","Team","Rk"
+"1",2003-10-29,23,"Miami Heat",26
+"2",2003-10-31,2,"Memphis Grizzlies",22
+"3",2003-11-01,-7,"New Orleans Hornets",14
+"4",2003-11-05,-8,"Detroit Pistons",5
+"5",2003-11-07,-7,"New Jersey Nets",4
+"6",2003-11-09,9,"Sacramento Kings",2
+"7",2003-11-11,2,"Indiana Pacers",8
+"8",2003-11-12,-7,"Chicago Bulls",25
+"9",2003-11-14,9,"Cleveland Cavaliers",29
+"10",2003-11-17,-3,"New York Knicks",21
+"11",2003-11-19,-8,"New Orleans Hornets",14
+"12",2003-11-21,-2,"Philadelphia 76ers",12
+"13",2003-11-24,-6,"New York Knicks",21
+"14",2003-11-26,2,"Orlando Magic",17
+"15",2003-11-28,10,"Milwaukee Bucks",16
+"16",2003-11-29,-6,"Milwaukee Bucks",16
+"17",2003-12-01,-7,"Memphis Grizzlies",22
+"18",2003-12-03,-10,"Toronto Raptors",27
+"19",2003-12-05,-4,"Phoenix Suns",13
+"20",2003-12-07,5,"Denver Nuggets",28
+"21",2003-12-08,22,"Utah Jazz",6
+"22",2003-12-10,14,"Seattle SuperSonics",15
+"23",2003-12-12,3,"Toronto Raptors",27
+"24",2003-12-13,7,"Cleveland Cavaliers",29
+"25",2003-12-15,-21,"Minnesota Timberwolves",10
+"26",2003-12-17,2,"Dallas Mavericks",1
+"27",2003-12-19,-3,"Utah Jazz",6
+"28",2003-12-21,3,"Philadelphia 76ers",12
+"29",2003-12-23,-5,"Atlanta Hawks",24
+"30",2003-12-26,2,"Phoenix Suns",13
+"31",2003-12-28,-23,"Los Angeles Lakers",9
+"32",2003-12-29,9,"Golden State Warriors",18
+"33",2003-12-31,-2,"New Orleans Hornets",14
+"34",2004-01-02,-13,"Indiana Pacers",8
+"35",2004-01-03,11,"Chicago Bulls",25
+"36",2004-01-05,-10,"Detroit Pistons",5
+"37",2004-01-07,8,"Orlando Magic",17
+"38",2004-01-09,25,"Cleveland Cavaliers",29
+"39",2004-01-11,4,"Houston Rockets",11
+"40",2004-01-13,-8,"Milwaukee Bucks",16
+"41",2004-01-14,-15,"Houston Rockets",11
+"42",2004-01-16,-6,"Orlando Magic",17
+"43",2004-01-18,-17,"San Antonio Spurs",3
+"44",2004-01-20,2,"Miami Heat",26
+"45",2004-01-23,11,"Washington Wizards",20
+"46",2004-01-25,-19,"New Jersey Nets",4
+"47",2004-01-28,-3,"Detroit Pistons",5
+"48",2004-01-30,-18,"New York Knicks",21
+"49",2004-01-31,-1,"Indiana Pacers",8
+"50",2004-02-04,-9,"Los Angeles Clippers",23
+"51",2004-02-06,-4,"Atlanta Hawks",24
+"52",2004-02-07,30,"Philadelphia 76ers",12
+"53",2004-02-09,-8,"Cleveland Cavaliers",29
+"54",2004-02-12,-20,"Chicago Bulls",25
+"55",2004-02-17,-16,"Sacramento Kings",2
+"56",2004-02-19,-2,"Los Angeles Clippers",23
+"57",2004-02-21,-21,"Portland Trail Blazers",7
+"58",2004-02-22,-21,"Seattle SuperSonics",15
+"59",2004-02-25,-2,"Milwaukee Bucks",16
+"60",2004-02-27,13,"Toronto Raptors",27
+"61",2004-02-29,9,"Toronto Raptors",27
+"62",2004-03-01,21,"Orlando Magic",17
+"63",2004-03-05,4,"Washington Wizards",20
+"64",2004-03-07,3,"Minnesota Timberwolves",10
+"65",2004-03-09,3,"New York Knicks",21
+"66",2004-03-10,-8,"Los Angeles Lakers",9
+"67",2004-03-12,-18,"Indiana Pacers",8
+"68",2004-03-13,9,"Washington Wizards",20
+"69",2004-03-17,4,"Denver Nuggets",28
+"70",2004-03-19,-16,"Dallas Mavericks",1
+"71",2004-03-20,-16,"San Antonio Spurs",3
+"72",2004-03-26,9,"New Jersey Nets",4
+"73",2004-03-28,24,"Philadelphia 76ers",12
+"74",2004-03-29,4,"New Jersey Nets",4
+"75",2004-03-31,-7,"Portland Trail Blazers",7
+"76",2004-04-02,5,"Golden State Warriors",18
+"77",2004-04-04,-10,"Washington Wizards",20
+"78",2004-04-07,-3,"Miami Heat",26
+"79",2004-04-09,-9,"New Orleans Hornets",14
+"80",2004-04-10,-11,"Atlanta Hawks",24
+"81",2004-04-12,-7,"Miami Heat",26
+"82",2004-04-14,5,"Atlanta Hawks",24
+"83",2005-11-02,14,"New York Knicks",24
+"84",2005-11-04,-1,"Detroit Pistons",6
+"85",2005-11-05,-2,"Charlotte Bobcats",28
+"86",2005-11-09,1,"Memphis Grizzlies",8
+"87",2005-11-11,-21,"San Antonio Spurs",1
+"88",2005-11-13,20,"Houston Rockets",5
+"89",2005-11-15,-15,"Detroit Pistons",6
+"90",2005-11-16,-13,"Seattle SuperSonics",7
+"91",2005-11-18,7,"Toronto Raptors",19
+"92",2005-11-22,-22,"Cleveland Cavaliers",15
+"93",2005-11-23,-3,"Atlanta Hawks",30
+"94",2005-11-25,1,"Charlotte Bobcats",28
+"95",2005-11-28,-4,"Orlando Magic",23
+"96",2005-11-30,7,"Philadelphia 76ers",18
+"97",2005-12-02,-4,"Chicago Bulls",12
+"98",2005-12-04,3,"New York Knicks",24
+"99",2005-12-06,-18,"Houston Rockets",5
+"100",2005-12-09,-12,"San Antonio Spurs",1
+"101",2005-12-10,-9,"Dallas Mavericks",3
+"102",2005-12-14,14,"Indiana Pacers",13
+"103",2005-12-16,-4,"Milwaukee Bucks",25
+"104",2005-12-17,-32,"Chicago Bulls",12
+"105",2005-12-19,11,"Golden State Warriors",20
+"106",2005-12-21,12,"Utah Jazz",27
+"107",2005-12-26,-7,"Seattle SuperSonics",7
+"108",2005-12-28,-2,"Golden State Warriors",20
+"109",2005-12-30,-4,"Sacramento Kings",9
+"110",2005-12-31,19,"Los Angeles Clippers",16
+"111",2006-01-02,-10,"Denver Nuggets",10
+"112",2006-01-04,3,"Charlotte Bobcats",28
+"113",2006-01-06,-5,"Atlanta Hawks",30
+"114",2006-01-07,-1,"Washington Wizards",17
+"115",2006-01-09,-2,"Dallas Mavericks",3
+"116",2006-01-10,4,"Atlanta Hawks",30
+"117",2006-01-13,-1,"Philadelphia 76ers",18
+"118",2006-01-16,-10,"Detroit Pistons",6
+"119",2006-01-18,7,"Minnesota Timberwolves",11
+"120",2006-01-20,3,"New Jersey Nets",21
+"121",2006-01-21,-20,"New Jersey Nets",21
+"122",2006-01-25,-2,"Washington Wizards",17
+"123",2006-01-27,10,"Sacramento Kings",9
+"124",2006-01-29,-4,"Milwaukee Bucks",25
+"125",2006-01-30,-25,"Minnesota Timberwolves",11
+"126",2006-02-01,-8,"Phoenix Suns",2
+"127",2006-02-03,-17,"Los Angeles Clippers",16
+"128",2006-02-04,-9,"Orlando Magic",23
+"129",2006-02-06,-16,"Miami Heat",4
+"130",2006-02-10,32,"Portland Trail Blazers",26
+"131",2006-02-12,8,"Orlando Magic",23
+"132",2006-02-15,-4,"Cleveland Cavaliers",15
+"133",2006-02-21,20,"Utah Jazz",27
+"134",2006-02-22,-9,"Phoenix Suns",2
+"135",2006-02-24,6,"Portland Trail Blazers",26
+"136",2006-02-26,1,"Los Angeles Lakers",22
+"137",2006-03-01,-7,"Miami Heat",4
+"138",2006-03-03,1,"Indiana Pacers",13
+"139",2006-03-05,-6,"Toronto Raptors",19
+"140",2006-03-07,1,"Washington Wizards",17
+"141",2006-03-08,3,"Philadelphia 76ers",18
+"142",2006-03-10,-6,"Milwaukee Bucks",25
+"143",2006-03-12,5,"Denver Nuggets",10
+"144",2006-03-14,-17,"Memphis Grizzlies",8
+"145",2006-03-16,-3,"Miami Heat",4
+"146",2006-03-17,-7,"Orlando Magic",23
+"147",2006-03-19,15,"Indiana Pacers",13
+"148",2006-03-20,-8,"Los Angeles Lakers",22
+"149",2006-03-22,14,"Toronto Raptors",19
+"150",2006-03-24,-12,"Cleveland Cavaliers",15
+"151",2006-03-26,-4,"Chicago Bulls",12
+"152",2006-03-29,25,"New York Knicks",24
+"153",2006-04-01,-6,"Chicago Bulls",12
+"154",2006-04-04,4,"Toronto Raptors",19
+"155",2006-04-05,-17,"Washington Wizards",17
+"156",2006-04-07,10,"Philadelphia 76ers",18
+"157",2006-04-09,-15,"New York Knicks",24
+"158",2006-04-12,-5,"Indiana Pacers",13
+"159",2006-04-14,-5,"New Jersey Nets",21
+"160",2006-04-16,-2,"New Jersey Nets",21
+"161",2006-04-17,-5,"Cleveland Cavaliers",15
+"162",2006-04-19,7,"Miami Heat",4
+"163",2006-11-01,-4,"New Orleans/Oklahoma City Hornets",24
+"164",2006-11-03,-13,"Detroit Pistons",2
+"165",2006-11-04,-7,"Washington Wizards",11
+"166",2006-11-08,2,"Charlotte Bobcats",27
+"167",2006-11-10,-7,"Utah Jazz",23
+"168",2006-11-11,-1,"Cleveland Cavaliers",8
+"169",2006-11-13,-3,"Orlando Magic",18
+"170",2006-11-15,26,"Indiana Pacers",10
+"171",2006-11-17,28,"Portland Trail Blazers",30
+"172",2006-11-18,4,"New York Knicks",29
+"173",2006-11-22,-9,"Charlotte Bobcats",27
+"174",2006-11-24,-24,"New York Knicks",29
+"175",2006-11-25,13,"Milwaukee Bucks",17
+"176",2006-11-29,-3,"New Jersey Nets",13
+"177",2006-12-01,-4,"Toronto Raptors",25
+"178",2006-12-04,-18,"Chicago Bulls",14
+"179",2006-12-06,-2,"Memphis Grizzlies",5
+"180",2006-12-08,-5,"Phoenix Suns",4
+"181",2006-12-09,2,"New Jersey Nets",13
+"182",2006-12-11,7,"New York Knicks",29
+"183",2006-12-13,20,"Philadelphia 76ers",22
+"184",2006-12-15,5,"Denver Nuggets",15
+"185",2006-12-16,6,"Charlotte Bobcats",27
+"186",2006-12-20,-1,"Golden State Warriors",16
+"187",2006-12-22,-15,"Philadelphia 76ers",22
+"188",2006-12-26,-11,"Denver Nuggets",15
+"189",2006-12-27,-23,"Los Angeles Clippers",9
+"190",2006-12-29,-10,"Golden State Warriors",16
+"191",2006-12-31,-6,"Seattle SuperSonics",26
+"192",2007-01-01,8,"Portland Trail Blazers",30
+"193",2007-01-03,-3,"Cleveland Cavaliers",8
+"194",2007-01-05,9,"Memphis Grizzlies",5
+"195",2007-01-07,-8,"Orlando Magic",18
+"196",2007-01-10,-13,"Indiana Pacers",10
+"197",2007-01-12,-9,"Toronto Raptors",25
+"198",2007-01-13,-8,"Detroit Pistons",2
+"199",2007-01-15,-4,"Atlanta Hawks",28
+"200",2007-01-19,-5,"Sacramento Kings",12
+"201",2007-01-20,-5,"Washington Wizards",11
+"202",2007-01-22,-4,"San Antonio Spurs",1
+"203",2007-01-24,-6,"Atlanta Hawks",28
+"204",2007-01-26,-6,"Toronto Raptors",25
+"205",2007-01-28,-14,"Washington Wizards",11
+"206",2007-01-30,-7,"Indiana Pacers",10
+"207",2007-01-31,-13,"Los Angeles Lakers",7
+"208",2007-02-02,-11,"Los Angeles Clippers",9
+"209",2007-02-06,-7,"Detroit Pistons",2
+"210",2007-02-07,-12,"Miami Heat",6
+"211",2007-02-09,-14,"New Jersey Nets",13
+"212",2007-02-11,-2,"Minnesota Timberwolves",21
+"213",2007-02-14,20,"Milwaukee Bucks",17
+"214",2007-02-20,-3,"Sacramento Kings",12
+"215",2007-02-21,-10,"Phoenix Suns",4
+"216",2007-02-23,-26,"Los Angeles Lakers",7
+"217",2007-02-24,-18,"Utah Jazz",23
+"218",2007-02-26,5,"Houston Rockets",19
+"219",2007-02-28,8,"New York Knicks",29
+"220",2007-03-03,8,"New Jersey Nets",13
+"221",2007-03-04,7,"Minnesota Timberwolves",21
+"222",2007-03-07,-31,"Houston Rockets",19
+"223",2007-03-09,15,"Seattle SuperSonics",26
+"224",2007-03-11,-16,"Chicago Bulls",14
+"225",2007-03-13,-8,"Chicago Bulls",14
+"226",2007-03-14,21,"Atlanta Hawks",28
+"227",2007-03-16,-5,"Dallas Mavericks",3
+"228",2007-03-17,6,"San Antonio Spurs",1
+"229",2007-03-19,-18,"New Orleans/Oklahoma City Hornets",24
+"230",2007-03-21,-8,"Charlotte Bobcats",27
+"231",2007-03-23,-14,"Dallas Mavericks",3
+"232",2007-03-26,8,"Toronto Raptors",25
+"233",2007-03-28,9,"Orlando Magic",18
+"234",2007-03-30,-6,"Philadelphia 76ers",22
+"235",2007-04-01,2,"Cleveland Cavaliers",8
+"236",2007-04-04,-9,"Milwaukee Bucks",17
+"237",2007-04-06,-3,"Miami Heat",6
+"238",2007-04-07,-7,"Indiana Pacers",10
+"239",2007-04-10,-8,"Atlanta Hawks",28
+"240",2007-04-11,-8,"Philadelphia 76ers",22
+"241",2007-04-13,-2,"Milwaukee Bucks",17
+"242",2007-04-15,-2,"Orlando Magic",18
+"243",2007-04-16,2,"Miami Heat",6
+"244",2007-04-18,-2,"Detroit Pistons",2
+"245",2007-11-02,20,"Washington Wizards",15
+"246",2007-11-04,3,"Toronto Raptors",10
+"247",2007-11-07,26,"Denver Nuggets",9
+"248",2007-11-09,23,"Atlanta Hawks",30
+"249",2007-11-10,11,"New Jersey Nets",16
+"250",2007-11-13,15,"Indiana Pacers",20
+"251",2007-11-14,22,"New Jersey Nets",16
+"252",2007-11-16,1,"Miami Heat",19
+"253",2007-11-18,-2,"Orlando Magic",11
+"254",2007-11-21,23,"Golden State Warriors",13
+"255",2007-11-23,13,"Los Angeles Lakers",12
+"256",2007-11-24,1,"Charlotte Bobcats",27
+"257",2007-11-27,-5,"Cleveland Cavaliers",7
+"258",2007-11-29,45,"New York Knicks",22
+"259",2007-11-30,10,"Miami Heat",19
+"260",2007-12-02,10,"Cleveland Cavaliers",7
+"261",2007-12-05,10,"Philadelphia 76ers",24
+"262",2007-12-07,28,"Toronto Raptors",10
+"263",2007-12-08,11,"Chicago Bulls",5
+"264",2007-12-12,12,"Sacramento Kings",17
+"265",2007-12-14,22,"Milwaukee Bucks",28
+"266",2007-12-16,13,"Toronto Raptors",10
+"267",2007-12-19,-2,"Detroit Pistons",6
+"268",2007-12-21,25,"Chicago Bulls",5
+"269",2007-12-23,12,"Orlando Magic",11
+"270",2007-12-26,20,"Sacramento Kings",17
+"271",2007-12-27,8,"Seattle SuperSonics",21
+"272",2007-12-29,6,"Utah Jazz",8
+"273",2007-12-30,19,"Los Angeles Lakers",12
+"274",2008-01-02,4,"Houston Rockets",4
+"275",2008-01-04,4,"Memphis Grizzlies",29
+"276",2008-01-05,7,"Detroit Pistons",6
+"277",2008-01-09,-12,"Charlotte Bobcats",27
+"278",2008-01-11,9,"New Jersey Nets",16
+"279",2008-01-12,-7,"Washington Wizards",15
+"280",2008-01-14,-5,"Washington Wizards",15
+"281",2008-01-16,10,"Portland Trail Blazers",26
+"282",2008-01-18,27,"Philadelphia 76ers",24
+"283",2008-01-21,16,"New York Knicks",22
+"284",2008-01-23,-2,"Toronto Raptors",10
+"285",2008-01-25,1,"Minnesota Timberwolves",23
+"286",2008-01-27,-3,"Orlando Magic",11
+"287",2008-01-29,30,"Miami Heat",19
+"288",2008-01-31,6,"Dallas Mavericks",2
+"289",2008-02-05,-1,"Cleveland Cavaliers",7
+"290",2008-02-06,11,"Los Angeles Clippers",14
+"291",2008-02-08,2,"Minnesota Timberwolves",23
+"292",2008-02-10,8,"San Antonio Spurs",1
+"293",2008-02-12,7,"Indiana Pacers",20
+"294",2008-02-13,8,"New York Knicks",22
+"295",2008-02-19,-6,"Denver Nuggets",9
+"296",2008-02-20,-2,"Golden State Warriors",13
+"297",2008-02-22,-8,"Phoenix Suns",3
+"298",2008-02-24,10,"Portland Trail Blazers",26
+"299",2008-02-25,28,"Los Angeles Clippers",14
+"300",2008-02-27,5,"Cleveland Cavaliers",7
+"301",2008-02-29,8,"Charlotte Bobcats",27
+"302",2008-03-02,10,"Atlanta Hawks",30
+"303",2008-03-05,12,"Detroit Pistons",6
+"304",2008-03-07,23,"Chicago Bulls",5
+"305",2008-03-08,30,"Memphis Grizzlies",29
+"306",2008-03-10,14,"Philadelphia 76ers",24
+"307",2008-03-12,29,"Seattle SuperSonics",21
+"308",2008-03-14,-18,"Utah Jazz",8
+"309",2008-03-15,22,"Milwaukee Bucks",28
+"310",2008-03-17,2,"San Antonio Spurs",1
+"311",2008-03-18,20,"Houston Rockets",4
+"312",2008-03-20,4,"Dallas Mavericks",2
+"313",2008-03-24,-5,"Philadelphia 76ers",24
+"314",2008-03-26,20,"Phoenix Suns",3
+"315",2008-03-30,26,"Miami Heat",19
+"316",2008-04-01,14,"Chicago Bulls",5
+"317",2008-04-02,15,"Indiana Pacers",20
+"318",2008-04-05,23,"Charlotte Bobcats",27
+"319",2008-04-08,3,"Milwaukee Bucks",28
+"320",2008-04-09,-14,"Washington Wizards",15
+"321",2008-04-11,16,"Milwaukee Bucks",28
+"322",2008-04-12,10,"Atlanta Hawks",30
+"323",2008-04-14,6,"New York Knicks",22
+"324",2008-04-16,11,"New Jersey Nets",16
+"325",2008-10-28,5,"Cleveland Cavaliers",16
+"326",2008-10-31,16,"Chicago Bulls",21
+"327",2008-11-01,-16,"Indiana Pacers",18
+"328",2008-11-04,4,"Houston Rockets",7
+"329",2008-11-07,12,"Milwaukee Bucks",28
+"330",2008-11-09,12,"Detroit Pistons",3
+"331",2008-11-10,7,"Toronto Raptors",12
+"332",2008-11-12,1,"Atlanta Hawks",20
+"333",2008-11-14,-9,"Denver Nuggets",11
+"334",2008-11-15,5,"Milwaukee Bucks",28
+"335",2008-11-18,9,"New York Knicks",26
+"336",2008-11-20,18,"Detroit Pistons",3
+"337",2008-11-21,17,"Minnesota Timberwolves",25
+"338",2008-11-23,15,"Toronto Raptors",12
+"339",2008-11-26,8,"Golden State Warriors",13
+"340",2008-11-28,24,"Philadelphia 76ers",14
+"341",2008-11-29,5,"Charlotte Bobcats",22
+"342",2008-12-01,19,"Orlando Magic",10
+"343",2008-12-03,18,"Indiana Pacers",18
+"344",2008-12-05,15,"Portland Trail Blazers",15
+"345",2008-12-07,5,"Indiana Pacers",18
+"346",2008-12-11,34,"Washington Wizards",17
+"347",2008-12-12,12,"New Orleans Hornets",5
+"348",2008-12-15,9,"Utah Jazz",4
+"349",2008-12-17,3,"Atlanta Hawks",20
+"350",2008-12-19,18,"Chicago Bulls",21
+"351",2008-12-21,19,"New York Knicks",26
+"352",2008-12-23,19,"Philadelphia 76ers",14
+"353",2008-12-25,-9,"Los Angeles Lakers",2
+"354",2008-12-26,-10,"Golden State Warriors",13
+"355",2008-12-28,45,"Sacramento Kings",19
+"356",2008-12-30,-5,"Portland Trail Blazers",15
+"357",2009-01-02,25,"Washington Wizards",17
+"358",2009-01-04,-12,"New York Knicks",26
+"359",2009-01-06,-8,"Charlotte Bobcats",22
+"360",2009-01-07,-4,"Houston Rockets",7
+"361",2009-01-09,-15,"Cleveland Cavaliers",16
+"362",2009-01-11,6,"Toronto Raptors",12
+"363",2009-01-12,6,"Toronto Raptors",12
+"364",2009-01-14,32,"New Jersey Nets",23
+"365",2009-01-17,20,"New Jersey Nets",23
+"366",2009-01-19,17,"Phoenix Suns",8
+"367",2009-01-21,15,"Miami Heat",30
+"368",2009-01-22,10,"Orlando Magic",10
+"369",2009-01-25,24,"Dallas Mavericks",9
+"370",2009-01-28,19,"Sacramento Kings",19
+"371",2009-01-30,8,"Detroit Pistons",3
+"372",2009-02-01,8,"Minnesota Timberwolves",25
+"373",2009-02-03,1,"Philadelphia 76ers",14
+"374",2009-02-05,-1,"Los Angeles Lakers",2
+"375",2009-02-06,10,"New York Knicks",26
+"376",2009-02-08,-6,"San Antonio Spurs",6
+"377",2009-02-11,12,"New Orleans Hornets",5
+"378",2009-02-12,7,"Dallas Mavericks",9
+"379",2009-02-19,-5,"Utah Jazz",4
+"380",2009-02-22,20,"Phoenix Suns",8
+"381",2009-02-23,38,"Denver Nuggets",11
+"382",2009-02-25,-2,"Los Angeles Clippers",27
+"383",2009-02-27,5,"Indiana Pacers",18
+"384",2009-03-01,-10,"Detroit Pistons",3
+"385",2009-03-04,4,"New Jersey Nets",23
+"386",2009-03-06,11,"Cleveland Cavaliers",16
+"387",2009-03-08,-7,"Orlando Magic",10
+"388",2009-03-11,-8,"Miami Heat",30
+"389",2009-03-13,10,"Memphis Grizzlies",24
+"390",2009-03-15,-9,"Milwaukee Bucks",28
+"391",2009-03-17,-6,"Chicago Bulls",21
+"392",2009-03-18,4,"Miami Heat",30
+"393",2009-03-20,3,"San Antonio Spurs",6
+"394",2009-03-21,18,"Memphis Grizzlies",24
+"395",2009-03-23,13,"Los Angeles Clippers",27
+"396",2009-03-25,-2,"Orlando Magic",10
+"397",2009-03-27,6,"Atlanta Hawks",20
+"398",2009-04-01,2,"Charlotte Bobcats",22
+"399",2009-04-03,12,"Atlanta Hawks",20
+"400",2009-04-08,2,"New Jersey Nets",23
+"401",2009-04-10,7,"Miami Heat",30
+"402",2009-04-12,-31,"Cleveland Cavaliers",16
+"403",2009-04-14,2,"Philadelphia 76ers",14
+"404",2009-04-15,8,"Washington Wizards",17
+"405",2009-10-27,6,"Cleveland Cavaliers",1
+"406",2009-10-28,33,"Charlotte Bobcats",20
+"407",2009-10-30,28,"Chicago Bulls",16
+"408",2009-11-01,10,"New Orleans Hornets",13
+"409",2009-11-03,31,"Philadelphia 76ers",15
+"410",2009-11-04,2,"Minnesota Timberwolves",25
+"411",2009-11-06,-7,"Phoenix Suns",12
+"412",2009-11-07,10,"New Jersey Nets",22
+"413",2009-11-11,19,"Utah Jazz",9
+"414",2009-11-13,-11,"Atlanta Hawks",10
+"415",2009-11-14,-9,"Indiana Pacers",18
+"416",2009-11-18,14,"Golden State Warriors",24
+"417",2009-11-20,-5,"Orlando Magic",4
+"418",2009-11-22,2,"New York Knicks",21
+"419",2009-11-25,3,"Philadelphia 76ers",15
+"420",2009-11-27,13,"Toronto Raptors",23
+"421",2009-11-29,7,"Miami Heat",14
+"422",2009-12-01,18,"Charlotte Bobcats",20
+"423",2009-12-03,7,"San Antonio Spurs",7
+"424",2009-12-04,18,"Oklahoma City Thunder",27
+"425",2009-12-08,9,"Milwaukee Bucks",19
+"426",2009-12-10,2,"Washington Wizards",28
+"427",2009-12-12,26,"Chicago Bulls",16
+"428",2009-12-14,5,"Memphis Grizzlies",26
+"429",2009-12-18,-1,"Philadelphia 76ers",15
+"430",2009-12-20,18,"Minnesota Timberwolves",25
+"431",2009-12-22,9,"Indiana Pacers",18
+"432",2009-12-25,9,"Orlando Magic",4
+"433",2009-12-27,-2,"Los Angeles Clippers",30
+"434",2009-12-28,-4,"Golden State Warriors",24
+"435",2009-12-30,-18,"Phoenix Suns",12
+"436",2010-01-02,7,"Toronto Raptors",23
+"437",2010-01-06,6,"Miami Heat",14
+"438",2010-01-08,-8,"Atlanta Hawks",10
+"439",2010-01-10,7,"Toronto Raptors",23
+"440",2010-01-11,-6,"Atlanta Hawks",10
+"441",2010-01-13,24,"New Jersey Nets",22
+"442",2010-01-14,-13,"Chicago Bulls",16
+"443",2010-01-18,-9,"Dallas Mavericks",11
+"444",2010-01-20,-6,"Detroit Pistons",17
+"445",2010-01-22,3,"Portland Trail Blazers",5
+"446",2010-01-25,6,"Los Angeles Clippers",30
+"447",2010-01-28,-2,"Orlando Magic",4
+"448",2010-01-29,-9,"Atlanta Hawks",10
+"449",2010-01-31,-1,"Los Angeles Lakers",3
+"450",2010-02-01,11,"Washington Wizards",28
+"451",2010-02-03,5,"Miami Heat",14
+"452",2010-02-05,9,"New Jersey Nets",22
+"453",2010-02-07,-7,"Orlando Magic",4
+"454",2010-02-10,-8,"New Orleans Hornets",13
+"455",2010-02-16,3,"Sacramento Kings",29
+"456",2010-02-18,1,"Los Angeles Lakers",3
+"457",2010-02-19,20,"Portland Trail Blazers",5
+"458",2010-02-21,-9,"Denver Nuggets",8
+"459",2010-02-23,4,"New York Knicks",21
+"460",2010-02-25,-20,"Cleveland Cavaliers",1
+"461",2010-02-27,-8,"New Jersey Nets",22
+"462",2010-03-02,5,"Detroit Pistons",17
+"463",2010-03-03,24,"Charlotte Bobcats",20
+"464",2010-03-05,10,"Philadelphia 76ers",15
+"465",2010-03-07,3,"Washington Wizards",28
+"466",2010-03-09,-2,"Milwaukee Bucks",19
+"467",2010-03-10,-20,"Memphis Grizzlies",26
+"468",2010-03-12,19,"Indiana Pacers",18
+"469",2010-03-14,-11,"Cleveland Cavaliers",1
+"470",2010-03-15,26,"Detroit Pistons",17
+"471",2010-03-17,12,"New York Knicks",21
+"472",2010-03-19,7,"Houston Rockets",6
+"473",2010-03-20,9,"Dallas Mavericks",11
+"474",2010-03-22,-13,"Utah Jazz",9
+"475",2010-03-24,14,"Denver Nuggets",8
+"476",2010-03-26,8,"Sacramento Kings",29
+"477",2010-03-28,-21,"San Antonio Spurs",7
+"478",2010-03-31,-5,"Oklahoma City Thunder",27
+"479",2010-04-02,-5,"Houston Rockets",6
+"480",2010-04-04,4,"Cleveland Cavaliers",1
+"481",2010-04-06,-3,"New York Knicks",21
+"482",2010-04-07,11,"Toronto Raptors",23
+"483",2010-04-09,-10,"Washington Wizards",28
+"484",2010-04-10,15,"Milwaukee Bucks",19
+"485",2010-04-13,-8,"Chicago Bulls",16
+"486",2010-04-14,-11,"Milwaukee Bucks",19
+"487",2010-10-26,8,"Miami Heat",13
+"488",2010-10-27,-8,"Cleveland Cavaliers",2
+"489",2010-10-29,4,"New York Knicks",23
+"490",2010-11-02,23,"Detroit Pistons",27
+"491",2010-11-03,3,"Milwaukee Bucks",14
+"492",2010-11-05,5,"Chicago Bulls",19
+"493",2010-11-07,9,"Oklahoma City Thunder",9
+"494",2010-11-08,-2,"Dallas Mavericks",12
+"495",2010-11-11,5,"Miami Heat",13
+"496",2010-11-13,6,"Memphis Grizzlies",17
+"497",2010-11-17,31,"Washington Wizards",26
+"498",2010-11-19,-5,"Oklahoma City Thunder",9
+"499",2010-11-21,-1,"Toronto Raptors",18
+"500",2010-11-22,23,"Atlanta Hawks",7
+"501",2010-11-24,6,"New Jersey Nets",30
+"502",2010-11-26,9,"Toronto Raptors",18
+"503",2010-11-30,19,"Cleveland Cavaliers",2
+"504",2010-12-01,4,"Portland Trail Blazers",10
+"505",2010-12-03,12,"Chicago Bulls",19
+"506",2010-12-05,25,"New Jersey Nets",30
+"507",2010-12-08,16,"Denver Nuggets",8
+"508",2010-12-09,1,"Philadelphia 76ers",25
+"509",2010-12-11,31,"Charlotte Bobcats",15
+"510",2010-12-15,2,"New York Knicks",23
+"511",2010-12-16,12,"Atlanta Hawks",7
+"512",2010-12-19,11,"Indiana Pacers",21
+"513",2010-12-22,4,"Philadelphia 76ers",25
+"514",2010-12-25,-8,"Orlando Magic",1
+"515",2010-12-28,12,"Indiana Pacers",21
+"516",2010-12-29,-12,"Detroit Pistons",27
+"517",2010-12-31,-2,"New Orleans Hornets",20
+"518",2011-01-02,14,"Toronto Raptors",18
+"519",2011-01-03,3,"Minnesota Timberwolves",29
+"520",2011-01-05,2,"San Antonio Spurs",4
+"521",2011-01-07,20,"Toronto Raptors",18
+"522",2011-01-08,-11,"Chicago Bulls",19
+"523",2011-01-10,-6,"Houston Rockets",16
+"524",2011-01-12,24,"Sacramento Kings",24
+"525",2011-01-14,5,"Charlotte Bobcats",15
+"526",2011-01-17,3,"Orlando Magic",1
+"527",2011-01-19,4,"Detroit Pistons",27
+"528",2011-01-21,24,"Utah Jazz",3
+"529",2011-01-22,-2,"Washington Wizards",26
+"530",2011-01-25,17,"Cleveland Cavaliers",2
+"531",2011-01-27,10,"Portland Trail Blazers",10
+"532",2011-01-28,-17,"Phoenix Suns",6
+"533",2011-01-30,13,"Los Angeles Lakers",5
+"534",2011-02-01,5,"Sacramento Kings",24
+"535",2011-02-04,-4,"Dallas Mavericks",12
+"536",2011-02-06,11,"Orlando Magic",1
+"537",2011-02-07,-5,"Charlotte Bobcats",15
+"538",2011-02-10,-6,"Los Angeles Lakers",5
+"539",2011-02-13,3,"Miami Heat",13
+"540",2011-02-16,14,"New Jersey Nets",30
+"541",2011-02-22,22,"Golden State Warriors",22
+"542",2011-02-24,-14,"Denver Nuggets",8
+"543",2011-02-26,7,"Los Angeles Clippers",28
+"544",2011-02-28,5,"Utah Jazz",3
+"545",2011-03-02,12,"Phoenix Suns",6
+"546",2011-03-04,4,"Golden State Warriors",22
+"547",2011-03-06,6,"Milwaukee Bucks",14
+"548",2011-03-09,-5,"Los Angeles Clippers",28
+"549",2011-03-11,-3,"Philadelphia 76ers",25
+"550",2011-03-13,31,"Milwaukee Bucks",14
+"551",2011-03-14,-9,"New Jersey Nets",30
+"552",2011-03-16,12,"Indiana Pacers",21
+"553",2011-03-18,-16,"Houston Rockets",16
+"554",2011-03-19,4,"New Orleans Hornets",20
+"555",2011-03-21,10,"New York Knicks",23
+"556",2011-03-23,-3,"Memphis Grizzlies",17
+"557",2011-03-25,-2,"Charlotte Bobcats",15
+"558",2011-03-27,3,"Minnesota Timberwolves",29
+"559",2011-03-28,-7,"Indiana Pacers",21
+"560",2011-03-31,10,"San Antonio Spurs",4
+"561",2011-04-01,-5,"Atlanta Hawks",7
+"562",2011-04-03,11,"Detroit Pistons",27
+"563",2011-04-05,17,"Philadelphia 76ers",25
+"564",2011-04-07,-16,"Chicago Bulls",19
+"565",2011-04-08,16,"Washington Wizards",26
+"566",2011-04-10,-23,"Miami Heat",13
+"567",2011-04-11,-1,"Washington Wizards",26
+"568",2011-04-13,10,"New York Knicks",23
+"569",2011-12-25,-2,"New York Knicks",15
+"570",2011-12-27,-8,"Miami Heat",1
+"571",2011-12-28,-19,"New Orleans Hornets",13
+"572",2011-12-30,11,"Detroit Pistons",23
+"573",2012-01-01,8,"Washington Wizards",29
+"574",2012-01-02,8,"Washington Wizards",29
+"575",2012-01-04,19,"New Jersey Nets",28
+"576",2012-01-06,-13,"Indiana Pacers",19
+"577",2012-01-11,-5,"Dallas Mavericks",8
+"578",2012-01-13,-9,"Chicago Bulls",2
+"579",2012-01-14,-14,"Indiana Pacers",19
+"580",2012-01-16,-9,"Oklahoma City Thunder",9
+"581",2012-01-18,23,"Toronto Raptors",27
+"582",2012-01-20,-8,"Phoenix Suns",16
+"583",2012-01-22,6,"Washington Wizards",29
+"584",2012-01-23,31,"Orlando Magic",5
+"585",2012-01-26,8,"Orlando Magic",5
+"586",2012-01-27,7,"Indiana Pacers",19
+"587",2012-01-29,-1,"Cleveland Cavaliers",30
+"588",2012-01-31,3,"Cleveland Cavaliers",30
+"589",2012-02-01,36,"Toronto Raptors",27
+"590",2012-02-03,2,"New York Knicks",15
+"591",2012-02-05,18,"Memphis Grizzlies",10
+"592",2012-02-07,10,"Charlotte Bobcats",24
+"593",2012-02-09,-1,"Los Angeles Lakers",3
+"594",2012-02-10,-12,"Toronto Raptors",27
+"595",2012-02-12,4,"Chicago Bulls",2
+"596",2012-02-15,-10,"Detroit Pistons",23
+"597",2012-02-16,-9,"Chicago Bulls",2
+"598",2012-02-19,-15,"Detroit Pistons",23
+"599",2012-02-20,-16,"Dallas Mavericks",8
+"600",2012-02-22,-15,"Oklahoma City Thunder",9
+"601",2012-02-28,3,"Cleveland Cavaliers",30
+"602",2012-02-29,6,"Milwaukee Bucks",17
+"603",2012-03-02,13,"New Jersey Nets",28
+"604",2012-03-04,4,"New York Knicks",15
+"605",2012-03-06,5,"Houston Rockets",11
+"606",2012-03-07,-32,"Philadelphia 76ers",14
+"607",2012-03-09,18,"Portland Trail Blazers",12
+"608",2012-03-11,-3,"Los Angeles Lakers",3
+"609",2012-03-12,9,"Los Angeles Clippers",22
+"610",2012-03-14,2,"Golden State Warriors",21
+"611",2012-03-16,-25,"Sacramento Kings",25
+"612",2012-03-17,-7,"Denver Nuggets",7
+"613",2012-03-19,3,"Atlanta Hawks",18
+"614",2012-03-22,9,"Milwaukee Bucks",17
+"615",2012-03-23,-13,"Philadelphia 76ers",14
+"616",2012-03-25,12,"Washington Wizards",29
+"617",2012-03-26,7,"Charlotte Bobcats",24
+"618",2012-03-28,12,"Utah Jazz",20
+"619",2012-03-30,21,"Minnesota Timberwolves",26
+"620",2012-04-01,19,"Miami Heat",1
+"621",2012-04-04,-1,"San Antonio Spurs",4
+"622",2012-04-05,-7,"Chicago Bulls",2
+"623",2012-04-07,14,"Indiana Pacers",19
+"624",2012-04-08,24,"Philadelphia 76ers",14
+"625",2012-04-10,8,"Miami Heat",1
+"626",2012-04-11,2,"Atlanta Hawks",18
+"627",2012-04-13,-5,"Toronto Raptors",27
+"628",2012-04-14,12,"New Jersey Nets",28
+"629",2012-04-15,12,"Charlotte Bobcats",24
+"630",2012-04-17,-8,"New York Knicks",15
+"631",2012-04-18,4,"Orlando Magic",5
+"632",2012-04-20,-5,"Atlanta Hawks",18
+"633",2012-04-24,12,"Miami Heat",1
+"634",2012-04-26,13,"Milwaukee Bucks",17
+"635",2012-10-30,-13,"Miami Heat",4
+"636",2012-11-02,-11,"Milwaukee Bucks",19
+"637",2012-11-03,3,"Washington Wizards",26
+"638",2012-11-07,6,"Washington Wizards",26
+"639",2012-11-09,-6,"Philadelphia 76ers",5
+"640",2012-11-10,4,"Milwaukee Bucks",19
+"641",2012-11-12,6,"Chicago Bulls",1
+"642",2012-11-14,5,"Utah Jazz",15
+"643",2012-11-17,18,"Toronto Raptors",24
+"644",2012-11-18,-20,"Detroit Pistons",27
+"645",2012-11-21,-12,"San Antonio Spurs",2
+"646",2012-11-23,8,"Oklahoma City Thunder",3
+"647",2012-11-25,6,"Orlando Magic",18
+"648",2012-11-30,18,"Portland Trail Blazers",20
+"649",2012-12-01,-3,"Milwaukee Bucks",19
+"650",2012-12-05,10,"Minnesota Timberwolves",21
+"651",2012-12-07,-1,"Philadelphia 76ers",5
+"652",2012-12-08,13,"Philadelphia 76ers",5
+"653",2012-12-12,2,"Dallas Mavericks",14
+"654",2012-12-14,-12,"Houston Rockets",16
+"655",2012-12-15,-15,"San Antonio Spurs",2
+"656",2012-12-18,-11,"Chicago Bulls",1
+"657",2012-12-19,12,"Cleveland Cavaliers",29
+"658",2012-12-21,-5,"Milwaukee Bucks",19
+"659",2012-12-27,-29,"Los Angeles Clippers",7
+"660",2012-12-29,-18,"Golden State Warriors",22
+"661",2012-12-30,-22,"Sacramento Kings",25
+"662",2013-01-02,-10,"Memphis Grizzlies",11
+"663",2013-01-04,19,"Indiana Pacers",8
+"664",2013-01-05,8,"Atlanta Hawks",9
+"665",2013-01-07,6,"New York Knicks",10
+"666",2013-01-09,8,"Phoenix Suns",17
+"667",2013-01-11,12,"Houston Rockets",16
+"668",2013-01-14,11,"Charlotte Bobcats",30
+"669",2013-01-16,-12,"New Orleans Hornets",23
+"670",2013-01-18,-1,"Chicago Bulls",1
+"671",2013-01-20,-15,"Detroit Pistons",27
+"672",2013-01-22,-5,"Cleveland Cavaliers",29
+"673",2013-01-24,-3,"New York Knicks",10
+"674",2013-01-25,-12,"Atlanta Hawks",9
+"675",2013-01-27,2,"Miami Heat",4
+"676",2013-01-30,18,"Sacramento Kings",25
+"677",2013-02-01,13,"Orlando Magic",18
+"678",2013-02-03,2,"Los Angeles Clippers",7
+"679",2013-02-06,4,"Toronto Raptors",24
+"680",2013-02-07,21,"Los Angeles Lakers",13
+"681",2013-02-10,4,"Denver Nuggets",6
+"682",2013-02-11,-3,"Charlotte Bobcats",30
+"683",2013-02-13,2,"Chicago Bulls",1
+"684",2013-02-19,-7,"Denver Nuggets",6
+"685",2013-02-20,-14,"Los Angeles Lakers",13
+"686",2013-02-22,25,"Phoenix Suns",17
+"687",2013-02-24,-6,"Portland Trail Blazers",20
+"688",2013-02-25,3,"Utah Jazz",15
+"689",2013-03-01,8,"Golden State Warriors",22
+"690",2013-03-05,8,"Philadelphia 76ers",5
+"691",2013-03-06,2,"Indiana Pacers",8
+"692",2013-03-08,5,"Atlanta Hawks",9
+"693",2013-03-10,-12,"Oklahoma City Thunder",3
+"694",2013-03-12,-26,"Charlotte Bobcats",30
+"695",2013-03-13,24,"Toronto Raptors",24
+"696",2013-03-16,17,"Charlotte Bobcats",30
+"697",2013-03-18,-2,"Miami Heat",4
+"698",2013-03-20,-1,"New Orleans Hornets",23
+"699",2013-03-22,-10,"Dallas Mavericks",14
+"700",2013-03-23,-4,"Memphis Grizzlies",11
+"701",2013-03-26,-15,"New York Knicks",10
+"702",2013-03-27,1,"Cleveland Cavaliers",29
+"703",2013-03-29,11,"Atlanta Hawks",9
+"704",2013-03-31,-19,"New York Knicks",10
+"705",2013-04-01,-10,"Minnesota Timberwolves",21
+"706",2013-04-03,5,"Detroit Pistons",27
+"707",2013-04-05,-6,"Cleveland Cavaliers",29
+"708",2013-04-07,11,"Washington Wizards",26
+"709",2013-04-12,-8,"Miami Heat",4
+"710",2013-04-13,32,"Orlando Magic",18
+"711",2013-04-17,-24,"Toronto Raptors",24
+"712",2013-10-30,-6,"Toronto Raptors",18
+"713",2013-11-01,-7,"Milwaukee Bucks",20
+"714",2013-11-03,-10,"Detroit Pistons",26
+"715",2013-11-04,-7,"Memphis Grizzlies",6
+"716",2013-11-06,10,"Utah Jazz",13
+"717",2013-11-08,2,"Orlando Magic",29
+"718",2013-11-09,1,"Miami Heat",2
+"719",2013-11-11,15,"Orlando Magic",29
+"720",2013-11-13,-6,"Charlotte Bobcats",30
+"721",2013-11-15,-13,"Portland Trail Blazers",21
+"722",2013-11-16,-18,"Minnesota Timberwolves",19
+"723",2013-11-19,-24,"Houston Rockets",8
+"724",2013-11-20,-11,"San Antonio Spurs",3
+"725",2013-11-22,-15,"Indiana Pacers",9
+"726",2013-11-23,7,"Atlanta Hawks",16
+"727",2013-11-25,10,"Charlotte Bobcats",30
+"728",2013-11-27,-7,"Memphis Grizzlies",6
+"729",2013-11-29,17,"Cleveland Cavaliers",27
+"730",2013-11-30,-7,"Milwaukee Bucks",20
+"731",2013-12-03,8,"Milwaukee Bucks",20
+"732",2013-12-06,8,"Denver Nuggets",5
+"733",2013-12-08,41,"New York Knicks",7
+"734",2013-12-10,-8,"Brooklyn Nets",12
+"735",2013-12-11,-8,"Los Angeles Clippers",4
+"736",2013-12-13,4,"New York Knicks",7
+"737",2013-12-16,4,"Minnesota Timberwolves",19
+"738",2013-12-18,-1,"Detroit Pistons",26
+"739",2013-12-21,-7,"Washington Wizards",22
+"740",2013-12-22,-27,"Indiana Pacers",9
+"741",2013-12-28,3,"Cleveland Cavaliers",27
+"742",2013-12-31,-1,"Atlanta Hawks",16
+"743",2014-01-02,-12,"Chicago Bulls",14
+"744",2014-01-05,-23,"Oklahoma City Thunder",1
+"745",2014-01-07,-31,"Denver Nuggets",5
+"746",2014-01-08,-6,"Los Angeles Clippers",4
+"747",2014-01-10,-2,"Golden State Warriors",11
+"748",2014-01-11,-8,"Portland Trail Blazers",21
+"749",2014-01-13,-12,"Houston Rockets",8
+"750",2014-01-15,5,"Toronto Raptors",18
+"751",2014-01-17,-3,"Los Angeles Lakers",10
+"752",2014-01-19,-2,"Orlando Magic",29
+"753",2014-01-21,-7,"Miami Heat",2
+"754",2014-01-22,2,"Washington Wizards",22
+"755",2014-01-24,-18,"Oklahoma City Thunder",1
+"756",2014-01-26,-6,"Brooklyn Nets",12
+"757",2014-01-28,-26,"New York Knicks",7
+"758",2014-01-29,-1,"Philadelphia 76ers",24
+"759",2014-02-02,7,"Orlando Magic",29
+"760",2014-02-05,6,"Philadelphia 76ers",24
+"761",2014-02-07,10,"Sacramento Kings",25
+"762",2014-02-09,-11,"Dallas Mavericks",15
+"763",2014-02-10,16,"Milwaukee Bucks",20
+"764",2014-02-12,-12,"San Antonio Spurs",3
+"765",2014-02-19,-6,"Phoenix Suns",28
+"766",2014-02-21,-9,"Los Angeles Lakers",10
+"767",2014-02-22,-7,"Sacramento Kings",25
+"768",2014-02-24,-12,"Utah Jazz",13
+"769",2014-02-26,11,"Atlanta Hawks",16
+"770",2014-03-01,-5,"Indiana Pacers",9
+"771",2014-03-05,-20,"Golden State Warriors",11
+"772",2014-03-07,7,"Brooklyn Nets",12
+"773",2014-03-09,7,"Detroit Pistons",26
+"774",2014-03-11,-11,"Indiana Pacers",9
+"775",2014-03-12,-24,"New York Knicks",7
+"776",2014-03-14,-7,"Phoenix Suns",28
+"777",2014-03-17,-5,"Dallas Mavericks",15
+"778",2014-03-19,5,"Miami Heat",2
+"779",2014-03-21,-16,"Brooklyn Nets",12
+"780",2014-03-26,-9,"Toronto Raptors",18
+"781",2014-03-28,-2,"Toronto Raptors",18
+"782",2014-03-30,-5,"Chicago Bulls",14
+"783",2014-03-31,-14,"Chicago Bulls",14
+"784",2014-04-02,-26,"Washington Wizards",22
+"785",2014-04-04,-9,"Philadelphia 76ers",24
+"786",2014-04-05,-4,"Detroit Pistons",26
+"787",2014-04-09,-8,"Atlanta Hawks",16
+"788",2014-04-11,3,"Charlotte Bobcats",30
+"789",2014-04-12,12,"Cleveland Cavaliers",27
+"790",2014-04-14,-5,"Philadelphia 76ers",24
+"791",2014-04-16,-16,"Washington Wizards",22
+"792",2014-10-29,16,"Brooklyn Nets",20
+"793",2014-11-01,-14,"Houston Rockets",5
+"794",2014-11-03,-5,"Dallas Mavericks",9
+"795",2014-11-05,-3,"Toronto Raptors",12
+"796",2014-11-07,3,"Indiana Pacers",8
+"797",2014-11-08,5,"Chicago Bulls",14
+"798",2014-11-12,-15,"Oklahoma City Thunder",3
+"799",2014-11-14,-1,"Cleveland Cavaliers",23
+"800",2014-11-17,-4,"Phoenix Suns",11
+"801",2014-11-19,11,"Philadelphia 76ers",30
+"802",2014-11-21,-17,"Memphis Grizzlies",13
+"803",2014-11-23,-6,"Portland Trail Blazers",7
+"804",2014-11-28,-7,"Chicago Bulls",14
+"805",2014-11-30,-22,"San Antonio Spurs",1
+"806",2014-12-02,-4,"Atlanta Hawks",16
+"807",2014-12-03,7,"Detroit Pistons",24
+"808",2014-12-05,17,"Los Angeles Lakers",25
+"809",2014-12-07,8,"Washington Wizards",15
+"810",2014-12-08,-1,"Washington Wizards",15
+"811",2014-12-12,-6,"New York Knicks",18
+"812",2014-12-15,18,"Philadelphia 76ers",30
+"813",2014-12-17,17,"Orlando Magic",27
+"814",2014-12-19,16,"Minnesota Timberwolves",10
+"815",2014-12-21,-16,"Miami Heat",6
+"816",2014-12-23,-5,"Orlando Magic",27
+"817",2014-12-26,-2,"Brooklyn Nets",20
+"818",2014-12-27,-13,"Washington Wizards",15
+"819",2014-12-31,22,"Sacramento Kings",22
+"820",2015-01-02,-18,"Dallas Mavericks",9
+"821",2015-01-03,-5,"Chicago Bulls",14
+"822",2015-01-07,8,"Brooklyn Nets",20
+"823",2015-01-09,-4,"Indiana Pacers",8
+"824",2015-01-10,-13,"Toronto Raptors",12
+"825",2015-01-12,8,"New Orleans Pelicans",21
+"826",2015-01-14,-14,"Atlanta Hawks",16
+"827",2015-01-16,-16,"Chicago Bulls",14
+"828",2015-01-19,-9,"Los Angeles Clippers",2
+"829",2015-01-22,1,"Portland Trail Blazers",7
+"830",2015-01-23,1,"Denver Nuggets",19
+"831",2015-01-25,-3,"Golden State Warriors",4
+"832",2015-01-26,9,"Utah Jazz",28
+"833",2015-01-28,-12,"Minnesota Timberwolves",10
+"834",2015-01-30,-6,"Houston Rockets",5
+"835",2015-02-01,-8,"Miami Heat",6
+"836",2015-02-03,11,"New York Knicks",18
+"837",2015-02-04,4,"Denver Nuggets",19
+"838",2015-02-06,11,"Philadelphia 76ers",30
+"839",2015-02-07,-3,"Milwaukee Bucks",29
+"840",2015-02-11,1,"Atlanta Hawks",16
+"841",2015-02-20,-8,"Sacramento Kings",22
+"842",2015-02-22,-7,"Los Angeles Lakers",25
+"843",2015-02-23,5,"Phoenix Suns",11
+"844",2015-02-25,21,"New York Knicks",18
+"845",2015-03-01,-5,"Golden State Warriors",4
+"846",2015-03-03,-31,"Cleveland Cavaliers",23
+"847",2015-03-04,1,"Utah Jazz",28
+"848",2015-03-06,6,"New Orleans Pelicans",21
+"849",2015-03-08,-5,"Orlando Magic",27
+"850",2015-03-09,10,"Miami Heat",6
+"851",2015-03-11,3,"Memphis Grizzlies",13
+"852",2015-03-13,7,"Orlando Magic",27
+"853",2015-03-14,4,"Indiana Pacers",8
+"854",2015-03-16,19,"Philadelphia 76ers",30
+"855",2015-03-18,-4,"Oklahoma City Thunder",3
+"856",2015-03-20,-12,"San Antonio Spurs",1
+"857",2015-03-22,-8,"Detroit Pistons",24
+"858",2015-03-23,19,"Brooklyn Nets",20
+"859",2015-03-25,-7,"Miami Heat",6
+"860",2015-03-27,4,"New York Knicks",18
+"861",2015-03-29,-13,"Los Angeles Clippers",2
+"862",2015-04-01,13,"Indiana Pacers",8
+"863",2015-04-03,-9,"Milwaukee Bucks",29
+"864",2015-04-04,1,"Toronto Raptors",12
+"865",2015-04-08,10,"Detroit Pistons",24
+"866",2015-04-10,9,"Cleveland Cavaliers",23
+"867",2015-04-12,39,"Cleveland Cavaliers",23
+"868",2015-04-14,2,"Toronto Raptors",12
+"869",2015-04-15,5,"Milwaukee Bucks",29
+"870",2015-10-28,17,"Philadelphia 76ers",29
+"871",2015-10-30,-10,"Toronto Raptors",11
+"872",2015-11-01,-8,"San Antonio Spurs",3
+"873",2015-11-04,-2,"Indiana Pacers",16
+"874",2015-11-06,20,"Washington Wizards",15
+"875",2015-11-10,16,"Milwaukee Bucks",17
+"876",2015-11-11,-11,"Indiana Pacers",16
+"877",2015-11-13,13,"Atlanta Hawks",4
+"878",2015-11-15,15,"Oklahoma City Thunder",12
+"879",2015-11-16,16,"Houston Rockets",7
+"880",2015-11-18,-4,"Dallas Mavericks",9
+"881",2015-11-20,25,"Brooklyn Nets",23
+"882",2015-11-22,-10,"Brooklyn Nets",23
+"883",2015-11-24,-24,"Atlanta Hawks",4
+"884",2015-11-25,4,"Philadelphia 76ers",29
+"885",2015-11-27,33,"Washington Wizards",15
+"886",2015-11-29,-19,"Orlando Magic",26
+"887",2015-11-30,10,"Miami Heat",24
+"888",2015-12-03,17,"Sacramento Kings",22
+"889",2015-12-05,-3,"San Antonio Spurs",3
+"890",2015-12-07,18,"New Orleans Pelicans",13
+"891",2015-12-09,5,"Chicago Bulls",10
+"892",2015-12-11,-5,"Golden State Warriors",1
+"893",2015-12-12,5,"Charlotte Hornets",25
+"894",2015-12-15,-12,"Cleveland Cavaliers",6
+"895",2015-12-16,-3,"Detroit Pistons",20
+"896",2015-12-18,-8,"Atlanta Hawks",4
+"897",2015-12-21,14,"Minnesota Timberwolves",28
+"898",2015-12-23,13,"Charlotte Hornets",25
+"899",2015-12-26,6,"Detroit Pistons",20
+"900",2015-12-27,9,"New York Knicks",30
+"901",2015-12-30,-8,"Los Angeles Lakers",27
+"902",2016-01-02,-3,"Brooklyn Nets",23
+"903",2016-01-04,9,"Brooklyn Nets",23
+"904",2016-01-06,-5,"Detroit Pistons",20
+"905",2016-01-07,-9,"Chicago Bulls",10
+"906",2016-01-10,-3,"Memphis Grizzlies",8
+"907",2016-01-12,-6,"New York Knicks",30
+"908",2016-01-13,9,"Indiana Pacers",16
+"909",2016-01-15,14,"Phoenix Suns",18
+"910",2016-01-16,2,"Washington Wizards",15
+"911",2016-01-18,-5,"Dallas Mavericks",9
+"912",2016-01-20,-6,"Toronto Raptors",11
+"913",2016-01-22,9,"Chicago Bulls",10
+"914",2016-01-24,20,"Philadelphia 76ers",29
+"915",2016-01-25,25,"Washington Wizards",15
+"916",2016-01-27,8,"Denver Nuggets",21
+"917",2016-01-29,19,"Orlando Magic",26
+"918",2016-01-31,-5,"Orlando Magic",26
+"919",2016-02-02,8,"New York Knicks",30
+"920",2016-02-03,7,"Detroit Pistons",20
+"921",2016-02-05,1,"Cleveland Cavaliers",6
+"922",2016-02-07,9,"Sacramento Kings",22
+"923",2016-02-09,-1,"Milwaukee Bucks",17
+"924",2016-02-10,5,"Los Angeles Clippers",2
+"925",2016-02-19,-18,"Utah Jazz",14
+"926",2016-02-21,20,"Denver Nuggets",21
+"927",2016-02-22,-2,"Minnesota Timberwolves",28
+"928",2016-02-25,5,"Milwaukee Bucks",17
+"929",2016-02-27,12,"Miami Heat",24
+"930",2016-02-29,5,"Utah Jazz",14
+"931",2016-03-02,23,"Portland Trail Blazers",5
+"932",2016-03-04,1,"New York Knicks",30
+"933",2016-03-05,-17,"Cleveland Cavaliers",6
+"934",2016-03-09,20,"Memphis Grizzlies",8
+"935",2016-03-11,-4,"Houston Rockets",7
+"936",2016-03-15,-5,"Indiana Pacers",16
+"937",2016-03-16,-21,"Oklahoma City Thunder",12
+"938",2016-03-18,-14,"Toronto Raptors",11
+"939",2016-03-20,15,"Philadelphia 76ers",29
+"940",2016-03-21,11,"Orlando Magic",26
+"941",2016-03-23,12,"Toronto Raptors",11
+"942",2016-03-26,3,"Phoenix Suns",18
+"943",2016-03-28,-24,"Los Angeles Clippers",2
+"944",2016-03-31,-7,"Portland Trail Blazers",5
+"945",2016-04-01,3,"Golden State Warriors",1
+"946",2016-04-03,7,"Los Angeles Lakers",27
+"947",2016-04-06,7,"New Orleans Pelicans",13
+"948",2016-04-08,15,"Milwaukee Bucks",17
+"949",2016-04-09,-11,"Atlanta Hawks",4
+"950",2016-04-11,-14,"Charlotte Hornets",25
+"951",2016-04-13,10,"Miami Heat",24
