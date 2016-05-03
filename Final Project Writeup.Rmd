@@ -1,0 +1,403 @@
+---
+title: "Sports Analytics Using Bayesian Methods"
+author: "Tom Jeon and Steele Valenzuela"
+date: "April 26, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The recent explosion of Fantasy Sports engendered many sports fans to rely on hard truths based on real data.  When sports fanatics and statistics mesh, betting and gambling on who will win a game become the most salient information.  The most common way sports analysts go about this is to train models that directly estimate the probability of a win;  however, considering very close games or blowouts, there’s a lot of information in the score differential that is disregarded if only the outcome of the game is modeled.  In this report, we use Bayesian methods to model expected score differential for the Boston Celtics, using data from 2004 to 2016.
+
+We explore time series and spline regression in the Bayesian framework to answer the following questions. Who is a better head coach, Doc Rivers, the former head coach of the Boston Celtics from 2004 to 2013, or Brad Stevens, the current head coach?  What is the expected score differential for the next Celtics game?  How does the expected score differential change if given the opposing team’s ranking?   
+
+## Data: Scraping, Cleaning, and Management
+
+One would think that the most popular place to collect data is from ESPN. Unfortunately, the site is not user-friendly for those looking to do their own analyses, but rather for those who simply want to view the box-scores. Luckily, we were familiar with other sports web sites and chose to scrape data from the site [sports-reference.com][sports-reference.com]. 
+
+In the most simple of terms, we needed data that identified a game, the two teams that played this game, and their respective scores. From there, we could calculate our response variable of interest, *score differential*, which is calculated by taking the difference of scores. Below is a screen shot of the website.
+
+<p align="center"><img src="../images/sports-ref-html-tbl.png"></p>
+
+After using the `rvest` library and two of its functions, we're able to extract the data and place it into a suitable dataframe that we can work with in `R`. Here is a screen shot.
+
+<p align="center"><img src="../images/r-html-tbl.png"></p>
+
+The libraries `dplyr` and `tidyr` were also crucial in cleaning the data by renaming variables, deleting columns, switching data from a wide to long format, adding attributes to each team, and lastly, filtering data by team, which we did throughout this project in order to focus on the local team, the Boston Celtics. 
+
+## Data:
+The data we collected from sports-reference.com included the final score records of all games from 2004 to 2016, and team rankings for each corresponding year.  We subsetted for when the Boston Celtics were either the Home Team or the Visiting Team and then calculated the score differential for each game, then assigned each observation the ranking of the opposing team for each season.
+
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+ult <- read.csv("ult.csv")
+doc <- read.csv("doc.csv")
+brad <- read.csv("brad.csv")
+
+library(dplyr)
+ult$Date <- as.Date(ult$Date, format = "%a, %b %d, %Y")
+ult2 <- arrange(ult, by = Date)
+ult2 <- ult2[,-c(1:2)]
+library(knitr)
+kable(head(ult2, 10))
+```
+
+Because many separate attributes about the team and its players were aggregated to calculate the rankings of each team, we decided the data we had were sufficient.  The opposing teams' rankings for each season were based on the previous season's data.  
+
+## Exploratory Analysis
+
+The first graph shows the score differential between the Celtics and their opponent at the end of every game from 2004 to 2016.  This means that because there were multiple games between the Celtics and the 1 to 30 ranked teams, there are many y values per x value.  Here, we defined a positive score differential to mean that the Celtics had a higher score at the end of the game and won.  
+
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+x.i <- ult$Rk
+y.i <- ult$diff
+
+plot(x.i, y.i, ylab = "Score Differential", xlab = "Ranking of Opponnent at Respective Year", main = "Boston Celtics Season '04-'16")
+```
+
+Next we looked the score differentials as a function of time to explore whether it was appropriate to use an AR(1) model for the score differentials.  
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+ult$Date <- as.Date(ult$Date, format = "%a, %b %d, %Y")
+ult2 <- arrange(ult, by = Date)
+
+Differential <- ult2$diff
+plot(Differential, type = "l", main = "Score Differential Boston Celtics 2004-2016", ylab = "Score Differential", xlab = "Game #")
+```
+
+The data looks stationary, with no obvious heteroskedastic qualities.  To see if there were any correlation between the current and previous games' score differentials, we plotted an autocorrelation function for this data.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(TSA)
+acf(Differential)
+```
+
+Looks like there are significant correlations between previous games and the current one! An AR(1) process to model the score differentials seems appropriate for our data.
+
+## Methods & Results
+
+### Doc Rivers vs. Brad Stevens
+One question we can answer using this data is, who is a better head coach, Doc Rivers or Brad Stevens?  We approached this question by fitting two Bayesian B-splines models, one with the data for when Doc Rivers was head coach, and one for Brad Stevens.  
+
+Here is the model set up:
+
+$$y_{i} \sim N(\mu_{i}, \sigma_{i}^2)$$
+$$\mu_{i} \sim \sum_{k=1}^{K}\left(b_{k}(x_{i}) \right)$$
+
+With priors:
+$$\alpha_{k} \sim N(0, 100)$$ 
+$$\sigma_{y} \sim U(0, 3)$$
+
+Spline intervals and degree:
+$$ I = 2.5$$
+$$ degree = 3$$
+
+To easily compare our splines models, we plotted both models on the same graph as shown below.
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(splines)
+library(dplyr)
+library(rjags)
+library(R2jags)
+# Functions defined
+GetSplines <- function( # Get B-splines
+    x.i, ##<< Vector of x-values (without NAs) for which splines need to be calculated (determines the number of rows of B.ik)
+    x0 = NULL, ##<< x-value which determines knot placement. By default, knot is placed half-interval before last observation
+    I = 2.5, ##<< Interval length between two knots during observation period
+    degree = 3 # currently tested only with degree 3
+) {
+    if (is.null(x0)) {
+        x0 <- max(x.i)-0.5*I 
+    } 
+    # get knots, given that one knot needs to be in year0
+    knots <- seq(x0-1000*I, x0+1000*I, I) 
+    while (min(x.i) < knots[1]) knots <- c(seq(knots[1]-1000*I, knots[1]-I,I), knots)
+    while (max(x.i) > knots[length(knots)]) knots <- c(knots, seq(knots[length(knots)]+I, 
+                                                                  knots[length(knots)]+1000*I, I)) 
+    Btemp.ik <- bs(x.i, knots = knots[-c(1, length(knots))],  degree = degree,
+                   Boundary.knots = knots[c(1, length(knots))])
+    indicesofcolswithoutzeroes <- which(apply(Btemp.ik, 2, sum) > 0)
+    # only remove columns with zeroes at start and end
+    startnonzerocol <- indicesofcolswithoutzeroes[1]
+    endnonzerocol <- indicesofcolswithoutzeroes[length(indicesofcolswithoutzeroes)]
+    B.ik <- Btemp.ik[,startnonzerocol:endnonzerocol]
+    colnames(B.ik) <- paste0("spline", seq(1, dim(B.ik)[2]))
+    knots.k <- knots[startnonzerocol:endnonzerocol]
+    names(knots.k) <- paste0("spline", seq(1, dim(B.ik)[2]))
+    ##value<< List of B-splines containing:
+    return(list(B.ik = B.ik, ##<< Matrix, each row is one observation, each column is one B-spline.
+                knots.k = knots.k ##<< Vector of knots.
+    ))
+}
+
+#Adding CIs to plot {graphics}
+AddCIs <- function(CI.low.t, # lower bound for seq.years.t
+                   CI.up.t, # upper bound for seq.years.t
+                   seq.years.t, col = 1){
+    # add CIs to a plot.
+    col = adjustcolor(col, alpha.f = 0.1)
+    for (t in 2:length(seq.years.t))
+        polygon(c(seq.years.t[t-1], seq.years.t[t-1], seq.years.t[t], seq.years.t[t],seq.years.t[t-1]),
+                c(CI.low.t[t-1], CI.up.t[t-1], CI.up.t[t], CI.low.t[t], CI.low.t[t-1]),
+                col=col, border = NA)
+}
+
+n <- length(y.i)
+
+I <- 5 # between-knot length
+res <- GetSplines(x.i, I = I)
+B.ik <- res$B.ik
+
+K <- dim(B.ik)[2]
+parnames <- c("alpha.k", "mu.i", "sigma.y")
+jags.data <- list(B.ik = B.ik, y.i = y.i, n=n, K=K)
+mod <- jags.parallel(jags.data,
+                     parameters.to.save = parnames, 
+                     model.file="splines_model_notpenalized.txt")
+
+# obtaining estimates for all x
+# use the alphas to evaluate the result at any grid of values
+alpha.sk <- mod$BUGSoutput$sims.list[["alpha.k"]]
+# define grid, here indexed with .t
+xgrid.t <- seq(min(x.i), max(x.i), 1)
+ngrid <- length(xgrid.t)
+# and use the same splines by keeping I and x0 fixed,
+# evaluate splines at grid of xs
+res2 <- GetSplines(xgrid.t, I = I, x0 = max(x.i)-0.5*I)
+CI.qt <- matrix(NA, 3,ngrid)
+for (t in 1:ngrid){  
+    CI.qt[,t] <- quantile(res2$B.ik[t,]%*%t(alpha.sk),c(0.025, 0.5, 0.975))
+}
+
+set.seed(123)
+# Doc Rivers
+x.i_doc <- doc$Rk
+y.i_doc <-  doc$diff
+n_doc <- length(y.i_doc)
+
+res_doc <- GetSplines(x.i_doc, I = I)
+B.ik_doc <- res_doc$B.ik
+
+K_doc <- dim(B.ik_doc)[2]
+parnames <- c("alpha.k", "mu.i", "sigma.y")
+jags.data <- list(B.ik = B.ik_doc, y.i = y.i_doc, n=n_doc, K=K_doc)
+mod_doc <- jags.parallel(jags.data,
+                     parameters.to.save = parnames, 
+                     model.file="splines_model_notpenalized.txt")
+
+# obtaining estimates for all x
+# use the alphas to evaluate the result at any grid of values
+alpha.sk_doc <- mod_doc$BUGSoutput$sims.list[["alpha.k"]]
+# define grid, here indexed with .t
+xgrid.t_doc <- seq(min(x.i_doc), max(x.i_doc), 1)
+ngrid_doc <- length(xgrid.t_doc)
+# and use the same splines by keeping I and x0 fixed,
+# evaluate splines at grid of xs
+res2_doc <- GetSplines(xgrid.t_doc, I = I, x0 = max(x.i_doc)-0.5*I)
+CI.qt_doc <- matrix(NA, 3,ngrid_doc)
+for (t in 1:ngrid_doc){  
+    CI.qt_doc[,t] <- quantile(res2_doc$B.ik[t,]%*%t(alpha.sk_doc),c(0.025, 0.5, 0.975))
+}
+
+
+
+# Brad Stevens
+x.i_brad <- brad$Rk
+y.i_brad <- brad$diff
+n_brad <- length(y.i_brad)
+
+res_brad <- GetSplines(x.i_brad, I = I)
+B.ik_brad <- res_brad$B.ik
+
+K_brad <- dim(B.ik_brad)[2]
+parnames <- c("alpha.k", "mu.i", "sigma.y")
+jags.data <- list(B.ik = B.ik, y.i = y.i_brad, n=n_brad, K=K_brad)
+mod_brad <- jags.parallel(jags.data,
+                         parameters.to.save = parnames, 
+                         model.file="splines_model_notpenalized.txt")
+
+# obtaining estimates for all x
+# use the alphas to evaluate the result at any grid of values
+alpha.sk_brad <- mod_brad$BUGSoutput$sims.list[["alpha.k"]]
+# define grid, here indexed with .t
+xgrid.t_brad <- seq(min(x.i_brad), max(x.i_brad), 1)
+ngrid_brad <- length(xgrid.t_brad)
+# and use the same splines by keeping I and x0 fixed,
+# evaluate splines at grid of xs
+res2_brad <- GetSplines(xgrid.t_brad, I = I, x0 = max(x.i_brad)-0.5*I)
+CI.qt_brad <- matrix(NA, 3,ngrid_brad)
+for (t in 1:ngrid_brad){  
+    CI.qt_brad[,t] <- quantile(res2_brad$B.ik[t,]%*%t(alpha.sk_brad),c(0.025, 0.5, 0.975))
+}
+y.i <- ult$diff
+par(lwd = 1, mfrow = c(1,1))
+plot(x.i, y.i, ylab = "Score Differential", xlab = "Ranking of Opponnent at Respective Year", main = "Boston Celtics Season '04-'16")
+lines(CI.qt_doc[2,] ~ xgrid.t_doc, col = "red")
+lines(CI.qt_brad[2,] ~ xgrid.t_brad, col = "blue")
+abline(h=0)
+
+lines(CI.qt[2, ]~xgrid.t, col = "green")
+legend("topleft", legend = c("Doc Rivers", "Brad Stevens", "Overall"), col = c("red", "blue", "green"), lty = 1)
+```
+
+As expected, the green spline model which represents the whole data regardless of whether the Boston Celtics were coached under Doc Rivers or Brad Stevens shows there is an upward trend as the ranking of the opposing team increases.  That is, the Celtics seem to do better against teams that are ranked lower.  A similar trend follows the red spline model, which represents Celtics performance under Doc Rivers, except it is slightly above the green one, which suggests that under Doc Rivers, the Celtics performed better than how the Celtics performed with and without Doc Rivers.  Now if you look at the blue line, the spline model that represents Celtics' performance under the current head coach, Brad Stevens, there is a downward trend!  This suggests that under Brad Stevens, the Celitcs do better against teams that are ranked higher.  We thought this revealed a lot about Stevens' coaching style.  
+
+To have a quantitative way of comparing the two head coaches, we looked at the area under the splines curves for Rivers and Stevens (red and blue) and over the horizontal line at $y = 0$.  Once we do so, we can effectively conclude that the Celtics performed better under Doc Rivers and hence Rivers is the superior coach, holding all other variables constant.  
+
+## Time Series Comparison of the Frequentist and Bayesian AR(1) Process
+
+### 2014 - 2015 Season
+
+For our initial analysis, team member Steele Valenzuela initially explored and exhausted exploratory analyses on how to fit an AR(1) process on observed data, particulary *score differential*, which was the $y_t$. For homework 7, a Bayesian AR(1) process was utilized for simulated data, but not observed data, which is why this initial process was undertaken and then later applied to the compiled dataset featuring additional games from the 2003-04 to 2014-15 seasons. Below is a time series plot of the Boston Celtics 2003-2004 season with *score differential* as $y_t$, observed at each of the 82 games.
+
+```{r time-series-plot, fig.align = 'center'}
+yt <- as.numeric(g2$diff)
+y <- ts(g2$diff)
+plot(yt, type = "b", ylim = c(-40, 40), ann = FALSE)
+title(main = list("Boston Celtics 2014-2015 Season and Results", cex = 1.5),
+     xlab = list("Game #", cex = 1.5), ylab = list("Score Differential", cex = 1.5))
+abline(h = 0, col = "red", lwd = 3)
+axis(side = 1, at = seq(10, 82, 10))
+```
+Can we infer anything from this plot? Maybe not as it does appear to be a sequence of random variables over 82 games.
+
+Let's investigate further with a plot of the auto-correlation function. 
+```{r acf-plot, fig.align = 'center'}
+# lag1.plot(y, 1) # we don't see any relationship # unsure of the importance of this. probably leave it out
+acf(yt, xlim = c(1, 82), lag.max = 82)
+```
+The correlation between one game, between two games, and so on, does not present a clear pattern.
+
+Next, let's estimate $\sigma$ and $\rho$. If we use the built-in functions in `R`, we can create a lag varible, which is then fit in a model against our original response variable $y_t$, which outputs $\rho$. Additionally, $\rho$ and $\sigma$ can be obtained from the `arima(...)` function as seen below.
+```{r, error = TRUE}
+ylag1 <- lag(y, 1)
+y1 <- cbind(y, ylag1)
+(ar1fit <- lm(as.numeric(y1[, 1]) ~ as.numeric(y1[, 2])))
+arima(x = yt, order = c(1, 0, 0))
+```
+For both outputs, we see that $\rho = 0.058$. For the last output, $\sigma = \sqrt{135.3} = 11.63$. $\sigma$ and $\rho$ are found by frequentist methods, specifically maximum likelihood or minimize conditional sum-of-squares, which is beyond the scope of this class.[*citation*]
+
+Now, onto a comparison of the Bayesian AR(1) process. Let us propose the following model:
+$$y_t \sim AR(1)$$
+$$\rho \sim U(-1, 1)$$
+$$\sigma \sim U(0, 15)$$
+
+By constraining $\rho$ between -1 and 1, we are assuming a stationary process for $y_t$. In the frequentist method, $\sigma$ was estimated to be 11.63, hence the upper bound is set to be larger with a value of 15. In order to begin the process, we must estimate $y_1$. Using the stationary distribution, $y_1 \sim N(0, \sigma^2/(1 - \rho^2))$, which follows in setting up the remainder of the $y_t$'s. Our results for the model fit are as follows:
+
+```{r ar1-model-fit, echo = FALSE}
+tbl1 <- data.frame(freq.param = c(11.632, 0.058),
+                  mean = c(11.895, 0.059),
+                  sd = c(0.962, 0.114), 
+                  "Lower Bound" = c(10.181, -0.173), 
+                  "Upper Bound" = c(13.960, 0.282), 
+                  "freq Lower Bound" = c(NA, 0.058 - 1.96*0.111), 
+                  "freq Upper Bound" = c(NA, 0.058 + 1.96*0.111))
+row.names(tbl1) <- c("sigma", "rho")
+kable(tbl1)
+```
+
+For convergence diagnostics on both $\sigma$ and $\rho$, traceplots checked out, $N_{eff}$ was equivalent to 4,000 and 1500, respectively, and the $\hat{R}$ was close to 1. As for the model fit, we see that the Bayesian methods produced estimates close to the frequentist estimates as the mean for $\sigma$ and $\rho$ are relatively close. We see for the Bayesian AR(1) process, the 95% credible interval is wider than the frequentist interval. Not shown here, but the reported median was 11.812 and 0.061 for $\sigma$ and $\rho$. 
+
+Lastly, to mirror the notes on Time Series for observed data, forecasted trajectories were created. From the slides, we see that given a posterior sample $\rho^{(s)}$ and $\sigma^{(s)}$, one forecast trajectory $y_{t+p}^{(s)}$ for $p \geq 1$ can be obtained as follows:
+
+$$y_{t+p}^{(s)}|\rho^{(s)}, \sigma^{(s)} \sim N(\rho^{(s)} y_{t+p-1}^{(s)}, \sigma^{(s)2})$$
+
+where $y_t^{(s)} = y_t$ (observed). In this particular case, $t = 82$, or the 82nd game, and $p=20$, or a trajectory of 20 games up to 102 games. Here is the following forecast:
+
+<p align="center"><img src="../images/forecast1.jpeg"></p>
+
+Up to game 82, we see the observed score differential, the red solid line is the point forecast, which is close to zero, the red-dotted lines are the 95% predictive interval for the point forecast, and the purple lines indicate example trajectores, which we see cross the bounds of the predictive intervals and is just all over the place, as expected. 
+
+### Compiled Season of the Boston Celtics
+
+Next, let's view a larger data set, which includes the score differential for the Boston Celtics from seasons 2003-2004 to 2014-2015, 951 games. Although we could have only included a fully-fitted model, we first worked with data that involved a single season due to the meticulousness of collecting multiple seasons, but it was completed. 
+
+Similar to the previous section with only the 2014 - 2015 season, our parameters $\sigma$ and $\rho$ will utilize the same prior distributions. Convergence and traceplots have checked out, so there is no need to report any concerns. Here are the results:
+
+```{r ar1-cc-fit, echo = FALSE}
+tbl2 <- data.frame(freq.param = c(12.566, 0.134),
+                  mean = c(12.677, 0.150),
+                  sd = c(0.299, 0.032), 
+                  "Lower Bound" = c(12.117, 0.088), 
+                  "Upper Bound" = c(13.273, 0.213), 
+                  "freq Lower Bound" = c(NA, 0.134 - 1.96*0.032), 
+                  "freq Upper Bound" = c(NA, 0.134 + 1.96*0.032))
+row.names(tbl2) <- c("sigma", "rho")
+kable(tbl2)
+```
+
+Again, similar analyses, but we can dissect this. First, we notice that that the frequentist and Bayesian $\rho$ differ by 0.016. This may or may not seem like a significant difference, but one would think that as more data was collected, the estimates would line up closer to one another, like the analyses for the 2014 - 2015 season. Additionally, we see the 95% credible intervals differ from the 95% confidence intervals, which may be due to the shift in $\rho$ estimates.
+
+Lastly, let us add the forecasted trajectory:
+
+<p align="center"><img src="../images/forecast2.jpeg"></p>
+
+Again, we see sampled trajectories shoot all over the place. If time allotted, one reason that forecasted trajectories may deem themselves pertinent could be if a team qualifies for the playoffs, how will the score differential of the last game of the season, or the second to last game of the season effect the score differential of the beginning of the play-offs.
+
+## Conclusion
+
+**Tom's spline conclusions**
+
+**Steele's conclusion**
+
+Fitting a Bayesian AR(1) process in order to estimate $y_t$, the score differential, proved to be a cumbersome task, but served its purposed in exhausting the model fitting process. We saw that Bayesian estimates of $\sigma$ and $\rho$ varied slightly from the frequestist estimates. Additionally, by fitting trajectories on a poorly fit AR(1) process did not display much information, except for the fact that the trajectories are quite unpredictable when your model does not fit any of the initial assumptions (such as the auto-correlation function plot). 
+
+## Appendix
+
+### Traceplots
+
+*Traceplots for Time Series Models 1 (2014-2015 season) and Model 2 (2003 - 2015 season)*
+
+<p align="center"><img src="../images/model1-sigma-traceplot.jpeg"></p>
+
+<p align="center"><img src="../images/model1-rho-traceplot.jpeg"></p>
+
+<p align="center"><img src="../images/model2-sigma-traceplot.jpeg"></p>
+
+<p align="center"><img src="../images/model2-rho-traceplot.jpeg"></p>
+
+### JAGS Code
+
+#### Time Series JAGS code for Model 1
+
+model{
+  y.t[1] ~ dnorm(0, tau.stat)
+  for(t in 2:ngames){
+    y.t[t] ~ dnorm(yhat.t[t], tau)
+    yhat.t[t] <- rho*y.t[t - 1]
+  }
+  y.p[1] ~ dnorm(yhat.p[1], tau)
+  yhat.p[1] <- rho*y.t[ngames]
+  for(p in 2:P){
+    y.p[p] ~ dnorm(yhat.p[p], tau)
+    yhat.p[p] <- rho*y.p[p-1]
+  }
+  tau.stat <- (1 - pow(rho, 2))/pow(sigma, 2)
+  tau <- pow(sigma, -2)
+  sigma ~ dunif(0, 15)
+  rho ~ dunif(-1, 1)
+}
+
+#### Time Series JAGS code for Model 2
+
+model{
+  y.t[1] ~ dnorm(0, tau.stat)
+  for(t in 2:nceltcomp){
+    y.t[t] ~ dnorm(yhat.t[t], tau)
+    yhat.t[t] <- rho*y.t[t - 1]
+  }
+  y.p[1] ~ dnorm(yhat.p[1], tau)
+  yhat.p[1] <- rho*y.t[nceltcomp]
+  for(p in 2:P){
+    y.p[p] ~ dnorm(yhat.p[p], tau)
+    yhat.p[p] <- rho*y.p[p-1]
+  }
+  tau.stat <- (1 - pow(rho, 2))/pow(sigma, 2)
+  tau <- pow(sigma, -2)
+  sigma ~ dunif(0, 15)
+  rho ~ dunif(-1, 1)
+}
