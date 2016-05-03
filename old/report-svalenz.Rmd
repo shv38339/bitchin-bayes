@@ -16,7 +16,6 @@ library(lubridate)
 library(knitr)
 library(rjags)
 library(R2jags)
-library(tsa)
 ```
 
 ## Introduction
@@ -52,6 +51,11 @@ d1$game.id <- seq(1, nrow(d1), 1)
 # home$score.dif <- home$PTS.H - home$PTS.V #negative values denote celtics' loss
 # visiting$score.dif <- visiting$PTS.V - visiting$PTS.H
 # kable(head(home)) # display table
+
+url14 <- read_html("http://www.basketball-reference.com/leagues/NBA_2014_games.html")
+tbl14 <- html_table(url14)
+
+d14 <- tbl_df(as.data.frame(tbl14[1]))
 ```
 
 We see the first 6 rows of the *home* data set, which displays the results for the Boston Celtics, the team they played, and the score differential. The *visiting* data set may also be viewed. 
@@ -246,4 +250,6 @@ Well, let's get a damn model here. First, what is our most basic model?
 # jags model ----
 
 ```
+
+
 

@@ -1,0 +1,66 @@
+---
+title: "Presentation Notes"
+author: "Steele H. Valenzuela"
+date: "April 25, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+```
+
+## Latex Code
+
+Slide notation for first proposed model of one season of the Celtics
+$$y_t \sim AR(1)$$
+$$\rho \sim U(-1, 1)$$
+$$\sigma \sim U(0, 15)$$
+
+Slide notation for last model of all seasons of the Celtics. Coincidentally or not really, we're using the same prior on $\sigma$.
+$$y_t \sim AR(1)$$
+$$\rho \sim U(-1, 1)$$
+$$\sigma \sim U(0, 15)$$ 
+
+For Nicole & Aixa:
+$$\hat{Y}|X_i = \beta_0 + \beta_1 \text{LogMela} + \beta_2 \text{year} + \beta_3 \text{year}^2 + \beta_4 \text{LogMela * year}$$
+
+## Summary of Model Fit for Bayesian AR(1) model (assuming you've ran file *ar1.R*)
+
+```{r, eval = FALSE}
+round(mod$BUGSoutput$summary[c("sigma", "rho"), ], 3)
+sigma; rho
+
+```
+
+```{r}
+tbl1 <- data.frame(freq.param = c(11.632, 0.058),
+                  mean = c(11.895, 0.059),
+                  sd = c(0.962, 0.114), 
+                  "Lower Bound" = c(10.181, -0.173), 
+                  "Upper Bound" = c(13.960, 0.282), 
+                  "tp Lower Bound" = c(NA, 0.058 - 1.96*0.111), 
+                  "tp Upper Bound" = c(NA, 0.058 + 1.96*0.111))
+row.names(tbl1) <- c("sigma", "rho")
+kable(tbl1)
+```
+
+## Summary of Model Fit for Bayesian AR(1) model of celtics compilation
+
+```{r, eval = FALSE}
+round(mod2$BUGSoutput$summary[c("sigma", "rho"), ], 3)
+sigma.cc; rho.cc
+```
+
+```{r}
+tbl2 <- data.frame(freq.param = c(12.566, 0.134),
+                  mean = c(12.677, 0.150),
+                  sd = c(0.299, 0.032), 
+                  "Lower Bound" = c(12.117, 0.088), 
+                  "Upper Bound" = c(13.273, 0.213), 
+                  "freq Lower Bound" = c(NA, 0.134 - 1.96*0.032), 
+                  "freq Upper Bound" = c(NA, 0.134 + 1.96*0.032))
+row.names(tbl2) <- c("sigma", "rho")
+kable(tbl2)
+```
+
