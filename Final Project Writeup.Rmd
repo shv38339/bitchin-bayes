@@ -9,7 +9,6 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<<<<<<< HEAD
 ## Introduction:
 The recent explosion of Fantasy Sports engendered many sports fans to rely on hard truths based on real data. When sports fanatics and statistics mesh, betting and gambling on who will win a game become the most salient information. The most common way sports analysts go about this is to train models that directly estimate the probability of a win; however, considering very close games or blowouts, there’s a lot of information in the score differential that is disregarded if only the outcome of the game is modeled. In this report, we use Bayesian methods to model expected score differential for the Boston Celtics, using data from 2004 to 2016.
 We explore time series and spline regression in the Bayesian framework to answer the following questions. Who is a better head coach, Doc Rivers, the former head coach of the Boston Celtics from 2004 to 2013, or Brad Stevens, the current head coach? What is the expected score differential for the next Celtics game? How does the expected score differential change if given the opposing team’s ranking?  
