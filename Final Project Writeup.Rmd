@@ -2,30 +2,32 @@
 title: "Sports Analytics Using Bayesian Methods"
 author: "Tom Jeon and Steele Valenzuela"
 date: "April 26, 2016"
-output: pdf_document
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(rjags)
+library(R2jags)
+library(splines)
+library(dplyr)
+library(tidyr)
+library(astsa) # time series?
+library(TSA)
+library(knitr)
+g1 <- tbl_df(read.csv(file = "data/g1.csv"))
+g2 <- g1 %>% filter(team == "Boston Celtics")
+g2$game.id <- seq(from = 1, to = 82, by = 1)
+celt.comp <- read.csv(file = "data/celtics_compiled.csv")[, 3] # only the diff
 ```
+\newpage 
 
 ## Introduction:
 The recent explosion of Fantasy Sports engendered many sports fans to rely on hard truths based on real data. When sports fanatics and statistics mesh, betting and gambling on who will win a game become the most salient information. The most common way sports analysts go about this is to train models that directly estimate the probability of a win; however, considering very close games or blowouts, there’s a lot of information in the score differential that is disregarded if only the outcome of the game is modeled. In this report, we use Bayesian methods to model expected score differential for the Boston Celtics, using data from 2004 to 2016.
 We explore time series and spline regression in the Bayesian framework to answer the following questions. Who is a better head coach, Doc Rivers, the former head coach of the Boston Celtics from 2004 to 2013, or Brad Stevens, the current head coach? What is the expected score differential for the next Celtics game? How does the expected score differential change if given the opposing team’s ranking?  
-
-## Data: Scraping, Cleaning, and Management
-
-One would think that the most popular place to collect data is from ESPN. Unfortunately, the site is not user-friendly for those looking to do their own analyses, but rather for those who simply want to view the box-scores. Luckily, we were familiar with other sports web sites and chose to scrape data from the site [sports-reference.com][sports-reference.com]. 
-
-In the most simple of terms, we needed data that identified a game, the two teams that played this game, and their respective scores. From there, we could calculate our response variable of interest, *score differential*, which is calculated by taking the difference of scores. Below is a screen shot of the website.
-
-<p align="center"><img src="../images/sports-ref-html-tbl.png"></p>
-
-After using the `rvest` library and two of its functions, we're able to extract the data and place it into a suitable dataframe that we can work with in `R`. Here is a screen shot.
-
-<p align="center"><img src="../images/r-html-tbl.png"></p>
-
-The libraries `dplyr` and `tidyr` were also crucial in cleaning the data by renaming variables, deleting columns, switching data from a wide to long format, adding attributes to each team, and lastly, filtering data by team, which we did throughout this project in order to focus on the local team, the Boston Celtics. 
 
 ## Data:
 The data we collected from sports-reference.com included the final score records of all games from 2004 to 2016, and team rankings for each corresponding year. We subsetted for when the Boston Celtics were either the Home Team or the Visiting Team and then calculated the score differential for each game, then assigned each observation the ranking of the opposing team for each season.
@@ -36,41 +38,46 @@ ult <- read.csv("ult.csv")
 doc <- read.csv("doc.csv")
 brad <- read.csv("brad.csv")
 
-library(dplyr)
 ult$Date <- as.Date(ult$Date, format = "%a, %b %d, %Y")
 ult2 <- arrange(ult, by = Date)
 ult2 <- ult2[,-c(1:2)]
-library(knitr)
-kable(head(ult2, 10))
+kable(head(ult2, 5))
 ```
 
 Because many separate attributes about the team and its players were aggregated to calculate the rankings of each team, we decided the data we had were sufficient. The opposing teams' rankings for each season were based on the previous season's data. 
 
+### Scraping, Cleaning, and Management
+
+One would think that the most popular place to collect data is from ESPN. Unfortunately, the site is not user-friendly for those looking to do their own analyses, but rather for those who simply want to view the box-scores. Luckily, we were familiar with other sports web sites and chose to scrape data from the site [sports-reference.com][sports-reference.com]. 
+
+In the most simple of terms, we needed data that identified a game, the two teams that played this game, and their respective scores. From there, we could calculate our response variable of interest, *score differential*, which is calculated by taking the difference of scores (*Please see appendix for a screenshot of the website*). After using the `rvest` library and two of its functions, we're able to extract the data and place it into a suitable dataframe that we can work with in `R`.
+
+The libraries `dplyr` and `tidyr` were also crucial in cleaning the data by renaming variables, deleting columns, switching data from a wide to long format, adding attributes to each team, and lastly, filtering data by team, which we did throughout this project in order to focus on the local team, the Boston Celtics. 
+
 ## Exploratory Analysis
 
-The first graph shows the score differential between the Celtics and their opponent at the end of every game from 2004 to 2016. This means that because there were multiple games between the Celtics and the 1 to 30 ranked teams, there are many y values per x value. Here, we defined a positive score differential to mean that the Celtics had a higher score at the end of the game and won. 
+The first graph shows the score differential between the Celtics and their opponent at the end of every game from 2004 to 2015. This means that because there were multiple games between the Celtics and the 1 to 30 ranked teams, there are many y values per x value. Here, we defined a positive score differential to mean that the Celtics had a higher score at the end of the game and won. 
 
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 x.i <- ult$Rk
 y.i <- ult$diff
 
-plot(x.i, y.i, ylab = "Score Differential", xlab = "Ranking of Opponnent at Respective Year", main = "Boston Celtics Season '04-'16")
+plot(x.i, y.i, ylab = "Score Differential", xlab = "Ranking of Opponnent at Respective Year", main = "Boston Celtics 2003-2015")
 ```
 
 Next we looked the score differentials as a function of time to explore whether it was appropriate to use an AR(1) model for the score differentials. 
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE, fig.height = 3, fig.width = 6, fig.align="center"}
 ult$Date <- as.Date(ult$Date, format = "%a, %b %d, %Y")
 ult2 <- arrange(ult, by = Date)
 
 Differential <- ult2$diff
-plot(Differential, type = "l", main = "Score Differential Boston Celtics 2004-2016", ylab = "Score Differential", xlab = "Game #")
+plot(Differential, type = "l", main = "Score Differential Boston Celtics 2003-2015", ylab = "Score Differential", xlab = "Game #")
 ```
 
 The data looks stationary, with no obvious heteroskedastic qualities. To see if there were any correlation between the current and previous games' score differentials, we plotted an autocorrelation function for this data.
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(TSA)
+```{r, echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE, fig.height=4, fig.width=6, fig.align="center"}
 acf(Differential)
 ```
 
@@ -96,11 +103,7 @@ $$ degree = 3$$
 
 To easily compare our splines models, we plotted both models on the same graph as shown below.
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
-library(splines)
-library(dplyr)
-library(rjags)
-library(R2jags)
+```{r, echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE}
 # Functions defined
 GetSplines <- function( # Get B-splines
   x.i, ##<< Vector of x-values (without NAs) for which splines need to be calculated (determines the number of rows of B.ik)
@@ -252,7 +255,7 @@ To have a quantitative way of comparing the two head coaches, we looked at the a
 
 For our initial analysis, team member Steele Valenzuela initially explored and exhausted exploratory analyses on how to fit an AR(1) process on observed data, particulary *score differential*, which was the $y_t$. For homework 7, a Bayesian AR(1) process was utilized for simulated data, but not observed data, which is why this initial process was undertaken and then later applied to the compiled dataset featuring additional games from the 2003-04 to 2014-15 seasons. Below is a time series plot of the Boston Celtics 2003-2004 season with *score differential* as $y_t$, observed at each of the 82 games.
 
-```{r time-series-plot, fig.align = 'center'}
+```{r time-series-plot, fig.align = 'center', echo = FALSE}
 yt <- as.numeric(g2$diff)
 y <- ts(g2$diff)
 plot(yt, type = "b", ylim = c(-40, 40), ann = FALSE)
@@ -264,7 +267,7 @@ axis(side = 1, at = seq(10, 82, 10))
 Can we infer anything from this plot? Maybe not as it does appear to be a sequence of random variables over 82 games.
 
 Let's investigate further with a plot of the auto-correlation function. 
-```{r acf-plot, fig.align = 'center'}
+```{r acf-plot, fig.align = 'center', echo = FALSE, fig.height=4, fig.width=6}
 # lag1.plot(y, 1) # we don't see any relationship # unsure of the importance of this. probably leave it out
 acf(yt, xlim = c(1, 82), lag.max = 82)
 ```
@@ -272,8 +275,7 @@ The correlation between one game, between two games, and so on, does not present
 
 Next, let's estimate $\sigma$ and $\rho$. If we use the built-in functions in `R`, we can create a lag varible, which is then fit in a model against our original response variable $y_t$, which outputs $\rho$. Additionally, $\rho$ and $\sigma$ can be obtained from the `arima(...)` function as seen below.
 ```{r, error = TRUE}
-ylag1 <- lag(y, 1)
-y1 <- cbind(y, ylag1)
+ylag1 <- lag(y, 1); y1 <- cbind(y, ylag1)
 (ar1fit <- lm(as.numeric(y1[, 1]) ~ as.numeric(y1[, 2])))
 arima(x = yt, order = c(1, 0, 0))
 ```
@@ -306,7 +308,7 @@ $$y_{t+p}^{(s)}|\rho^{(s)}, \sigma^{(s)} \sim N(\rho^{(s)} y_{t+p-1}^{(s)}, \sig
 
 where $y_t^{(s)} = y_t$ (observed). In this particular case, $t = 82$, or the 82nd game, and $p=20$, or a trajectory of 20 games up to 102 games. Here is the following forecast:
 
-<p align="center"><img src="../images/forecast1.jpeg"></p>
+![forecast-1](images/forecast1.jpeg)
 
 Up to game 82, we see the observed score differential, the red solid line is the point forecast, which is close to zero, the red-dotted lines are the 95% predictive interval for the point forecast, and the purple lines indicate example trajectores, which we see cross the bounds of the predictive intervals and is just all over the place, as expected. 
 
@@ -332,19 +334,17 @@ Again, similar analyses, but we can dissect this. First, we notice that that the
 
 Lastly, let us add the forecasted trajectory:
 
-<p align="center"><img src="../images/forecast2.jpeg"></p>
+![forecast-2](images/forecast2.jpeg)
 
 Again, we see sampled trajectories shoot all over the place. If time allotted, one reason that forecasted trajectories may deem themselves pertinent could be if a team qualifies for the playoffs, how will the score differential of the last game of the season, or the second to last game of the season effect the score differential of the beginning of the play-offs.
 
 ## Conclusion
 
-**Tom's spline conclusions**
-
 Fitting separate splines models for subsets of data allowed for a direct comparison between Doc Rivers and Brad Stevens. From our results, we can conclude that Doc Rivers was a more traditional coach, in the sense that the Boston Celtics, as one would expect, performed better against lower ranked teams. We can also conclude that Brad Stevens is not a traditional coach, because the Boston Celtics performs better against higher ranked teams, contrary to what one would expect. However, the three splines models gave us a quantitative way to assess who is superior: Doc Rivers, as well as a way to predict expected score differential for the Celtics given the ranking of the opposing team.
 
-**Steele's conclusion**
+Fitting a Bayesian AR(1) process in order to estimate $y_t$, the score differential, proved to be a cumbersome task, but served its purposed in exhausting the model fitting process. We saw that Bayesian estimates of $\sigma$ and $\rho$ varied slightly from the frequestist estimates. Additionally, by fitting trajectories on a poorly fit AR(1) process did not display much information, except for the fact that the trajectories are quite unpredictable when your model does not fit any of the initial assumptions (such as the auto-correlation function plot). For future research, we would look into fitting much more sophisticated models, adding covaraites, as they were not added for the sake of time and for the limited scope of this subject in class. 
 
-Fitting a Bayesian AR(1) process in order to estimate $y_t$, the score differential, proved to be a cumbersome task, but served its purposed in exhausting the model fitting process. We saw that Bayesian estimates of $\sigma$ and $\rho$ varied slightly from the frequestist estimates. Additionally, by fitting trajectories on a poorly fit AR(1) process did not display much information, except for the fact that the trajectories are quite unpredictable when your model does not fit any of the initial assumptions (such as the auto-correlation function plot). 
+\newpage 
 
 ## Appendix
 
@@ -352,13 +352,15 @@ Fitting a Bayesian AR(1) process in order to estimate $y_t$, the score different
 
 *Traceplots for Time Series Models 1 (2014-2015 season) and Model 2 (2003 - 2015 season)*
 
-<p align="center"><img src="../images/model1-sigma-traceplot.jpeg"></p>
+![model1-sigma](images/model1-sigma-traceplot.jpeg)
 
-<p align="center"><img src="../images/model1-rho-traceplot.jpeg"></p>
+![model1-sigma](images/model1-rho-traceplot.jpeg)
 
-<p align="center"><img src="../images/model2-sigma-traceplot.jpeg"></p>
+![model1-sigma](images/model2-sigma-traceplot.jpeg)
 
-<p align="center"><img src="../images/model2-rho-traceplot.jpeg"></p>
+![model1-sigma](images/model2-rho-traceplot.jpeg)
+
+\newpage
 
 ### JAGS Code
 
@@ -418,3 +420,7 @@ model{
   rho ~ dunif(-1, 1)
 }
 ```
+
+## Screenshot of website
+
+![screenshot](images/sports-ref-html-tbl.png)

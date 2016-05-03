@@ -1,0 +1,14 @@
+base
+coda
+rjags
+R2jags
+dplyr
+tidyr
+astsa
+leaps
+locfit
+nlme
+mgcv
+tseries
+TSA
+knitr

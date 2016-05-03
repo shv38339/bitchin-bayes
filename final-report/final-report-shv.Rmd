@@ -17,7 +17,6 @@ g1 <- tbl_df(read.csv(file = "../data/g1.csv"))
 g2 <- g1 %>% filter(team == "Boston Celtics")
 g2$game.id <- seq(from = 1, to = 82, by = 1)
 celt.comp <- read.csv(file = "../data/celtics_compiled.csv")[, 3] # only the diff
-# needs to be filtered
 ```
 
 ## Introduction
