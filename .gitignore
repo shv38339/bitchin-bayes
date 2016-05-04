@@ -22,3 +22,7 @@ vignettes/*.pdf
 
 # misc
 .DS_Store
+
+# cache files
+Final_Project_Writeup_cache/
+Final_Project_Writeup_files/
